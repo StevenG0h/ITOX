@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ParticipantController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/SignUp', [ParticipantController::class,'signUp'])->name('SignUp');
+Route::get('/SignIn', [ParticipantController::class,'signIn'])->name('SignIn');
+Route::get('/CreateTeam', [ParticipantController::class,'CreateTeam'])->name('CreateTeam');
+Route::get('/AddMember', [ParticipantController::class,'AddMember'])->name('AddMember');
+Route::get('/Dashboard', [ParticipantController::class,'Dashboard'])->name('Dashboard');
