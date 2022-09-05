@@ -72,3 +72,9 @@ h3{
 .radius-sm{
     border-radius: 1em;
 }
+.alert-warning{
+    background-color: rgb(255, 238, 161) !important;
+}
+.alert-done{
+    background-color: rgba(154, 221, 147, 0.822) !important;
+}

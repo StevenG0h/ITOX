@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/participant.css') }}">
 </head>
 <body class="rm-p-m">
-    <header>asdf</header>
+    <header></header>
     <main class="mx-auto radius-sm">
         @yield('ParticipantAccount')
     </main>
