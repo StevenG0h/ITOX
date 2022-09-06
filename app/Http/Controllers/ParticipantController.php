@@ -15,6 +15,9 @@ class ParticipantController extends Controller
     public function CreateTeam(){
         return view('Participant/Competition/CreateTeam');
     }
+    public function AddInstitution(){
+        return view('Participant/Competition/AddInstitution');
+    }
     public function AddMember(){
         return view('Participant/Competition/AddMember');
     }

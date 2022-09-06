@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/participant.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="rm-p-m">
     <header></header>
-    <main class="mx-auto radius-sm">
-        @yield('ParticipantAccount')
+    <main class="mx-auto dashboard">
+        @yield('ParticipantDashboard')
     </main>
     <footer></footer>
 </body>

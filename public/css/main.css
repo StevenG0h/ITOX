@@ -1,3 +1,15 @@
+:root{
+    --bg : #131a36;
+    --primary : rgba(20,41,86,1);
+    --accent : #d19bee;
+    --accent2 : #4cfafb;
+    --text : #f0f0f0;
+    --gradient1 : linear-gradient(90deg, rgba(20,41,86,1) 32%, rgba(209,155,238,1) 100%);
+    --gradient2 : linear-gradient(90deg, rgba(20,41,86,1) 32%, rgba(76,250,251,1) 100%);
+    --gradient3 : linear-gradient(90deg, rgba(20,41,86,1) 32%, rgba(252, 0, 0, 0.767) 100%);
+    --cornergradient1 : linear-gradient(200deg, rgba(20,41,86,1) 0%, rgba(209,155,238,1) 100%);
+    --cornergradient2 : linear-gradient(200deg, rgba(20,41,86,1) 0%, rgba(76,250,251,1) 100%);
+}
 body{
     margin: 0;
     padding: 0;
@@ -50,6 +62,9 @@ h3{
 .mt-1{
     margin-top: 1em;
 }
+.mt-2{
+    margin-top: 2em;
+}
 .mb-1{
     margin-bottom: 1em;
 }
@@ -73,8 +88,11 @@ h3{
     border-radius: 1em;
 }
 .alert-warning{
-    background-color: rgb(255, 238, 161) !important;
+    background: var(--gradient1);
+}
+.alert-danger{
+    background: var(--gradient3);
 }
 .alert-done{
-    background-color: rgba(154, 221, 147, 0.822) !important;
+    background: var(--gradient2)
 }

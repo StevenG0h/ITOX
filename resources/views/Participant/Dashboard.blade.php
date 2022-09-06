@@ -1,51 +1,47 @@
-@extends('./Participant/Layouts/AccountTemplate')
+@extends('./Participant/Layouts/DashboardTemplate')
 
-@section('ParticipantAccount')
+@section('ParticipantDashboard')
     <div class="welcome p1">
         <h1>Welcome, team bla bla</h1>
     </div>
-    <div class="status p1">
-        <div class="alert alert-warning">
+    <div class="status">
+        <div class="alert alert-danger">
             Tim anda belum melakukan pembayaran
         </div>
-        <div class="alert alert-done mt-1">
-            Klik link ini untuk mengunduh guidebook lomba
-            <a href="">Guide book</a>
-        </div>
     </div>
-    <div class="timeline p1">
+    <div class="timeline pt-1 p1 radius-sm">
         <h2>Timeline</h2>
         <table>
-            <tr>
-                <th>Kegiatan</th>
-                <th>Tanggal</th>
-            </tr>
-            <tr>
-                <td>Batas pendaftaran dan pengumpulan resource</td>
-                <td>1 November 2022</td>
-            </tr>
-            <tr>
-                <td>Pembukaan dan technical meeting</td>
-                <td>4 November 2022</td>
-            </tr>
-            <tr>
-                <td>Hari pertama lomba</td>
-                <td>5 November 2022</td>
-            </tr>
-            <tr>
-                <td>Hari Kedua lomba dan pengumuman pemenang</td>
-                <td>6 November 2022</td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td>Batas pendaftaran dan pengumpulan resource</td>
+                    <td>1 November 2022</td>
+                </tr>
+                <tr>
+                    <td>Pembukaan dan technical meeting</td>
+                    <td>4 November 2022</td>
+                </tr>
+                <tr>
+                    <td>Hari pertama lomba</td>
+                    <td>5 November 2022</td>
+                </tr>
+                <tr>
+                    <td>Hari Kedua lomba dan pengumuman pemenang</td>
+                    <td>6 November 2022</td>
+                </tr>
+            </tbody>
         </table>
     </div>
-    <div class="team-data p1">
+    <div class="team-data p1 radius-sm">
         <h2>Data Tim</h2>
         <ul>
             <li>Nama Tim : Bla Bla</li>
             <li>Cabang Lomba : Web Design</li>
+            <li>Kategori : Mahasiswa</li>
+            <li>Institusi asal : Politeknik Caltex Riau</li>
         </ul>
     </div>
-    <div class="team-data p1">
+    <div class="team-data p1 radius-sm">
         <h2>Daftar Anggota</h2>
         <ul>
             <li>Ketua : Interimo</li>
@@ -53,13 +49,10 @@
             <li>Anggota : Dorime</li>
         </ul>
     </div>
-    <div class="payment p1">
-        <h2>Pembayaran</h2>
-        <form action="" method="post" class="form">
-            <div class="upload-wrapper">
-                <input type="file"  name="" id="data-diri" class="upload-file mt-1" >
-            </div>
-            <input type="submit" value="Upload" class="button">
-        </form>
-    </div>
+    <a href="" class="payment radius-sm p1">
+        <h3>Pembayaran</h3>
+    </a>
+    <a href="" class="payment radius-sm p1">
+        <h3>Unduh Peraturan Lomba</h3>
+    </a>
 @endsection
