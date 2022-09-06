@@ -14,8 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('competitions', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('kode_lomba');
+            $table->timestamps('created_at');
+            $table->string('nama_lomba');
+            $table->integer('max_anggota');
+            $table->date('batas_pendaftaran');
+            $table->string('url_guidebook');
         });
     }
 
