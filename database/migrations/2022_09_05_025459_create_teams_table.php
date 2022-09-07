@@ -14,22 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->id('kode_tim')->primary();
-            $table->unsignedBigInteger('kode_lomba');
-            $table->unsignedBigInteger('ketua_id');
+            $table->id('kode_tim');
+            $table->string('kode_lomba');
+            $table->string('ketua_id');
             $table->string('nama_tim');
             $table->string('nomor_hp');
             $table->string('institusi_asal');
             $table->string('jenis_institusi');
-            $table->timestamps('created_at');
+            $table->timestamps();
 
-            $table->foreignId('ketua_id')->constrained('members')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
-
-            $table->foreignId('kode_lomba')->constrained('competition')
-            ->onUpdate('cascade')
-            ->onDelete('nullOnDelete');
+            
         });
     }
 

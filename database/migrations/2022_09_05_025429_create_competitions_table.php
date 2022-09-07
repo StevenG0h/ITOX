@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('competitions', function (Blueprint $table) {
             $table->id('kode_lomba');
-            $table->timestamps('created_at');
+            $table->timestamps();
             $table->string('nama_lomba');
             $table->integer('max_anggota');
             $table->date('batas_pendaftaran');

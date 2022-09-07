@@ -15,15 +15,12 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id('member_id');
-            $table->id('kode_team');
+            $table->string('kode_team');
             $table->string('nama');
             $table->string('url_dokumen');
-            $table->timestamps('created_at');
-                
-            $table->foreignId('kode_team')->constrained('teams')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->timestamps();
         });
+        
     }
 
     /**
