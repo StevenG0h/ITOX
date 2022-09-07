@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->id('kode_tim');
-            $table->string('kode_lomba');
-            $table->string('ketua_id');
+            $table->unsignedBigInteger('kode_lomba');
+            $table->unsignedBigInteger('kode_ketua');
             $table->string('nama_tim');
             $table->string('nomor_hp');
             $table->string('institusi_asal');
@@ -24,6 +24,9 @@ return new class extends Migration
             $table->timestamps();
 
             
+        });
+        Schema::table('teams', function (Blueprint $table){
+            $table->foreign('kode_lomba')->references('kode_lomba')->on('competitions')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

@@ -15,12 +15,17 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id('member_id');
-            $table->string('kode_team');
+            $table->unsignedBigInteger('kode_tim');
             $table->string('nama');
             $table->string('url_dokumen');
             $table->timestamps();
         });
-        
+        Schema::table('members',function(Blueprint $table){
+            $table->foreign('kode_tim')->references('kode_tim')->on('teams')->cascadeOnDelete()->cascadeOnUpdate();
+        });
+        Schema::table('teams',function(Blueprint $table){
+            $table->foreign('kode_ketua')->references('member_id')->on('members')->cascadeOnDelete()->cascadeOnUpdate();
+        });
     }
 
     /**

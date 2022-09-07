@@ -15,9 +15,14 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id('payment_id');
+            $table->unsignedBigInteger('kode_tim');
             $table->string('member_id');
             $table->boolean('verified');
             $table->timestamps();
+        });
+        
+        Schema::table('payments',function (Blueprint $table){
+            $table->foreign('kode_tim')->references('kode_tim')->on('teams')->restrictOnUpdate()->restrictOnDelete();
         });
     }
 
