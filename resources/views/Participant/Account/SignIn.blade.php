@@ -8,7 +8,13 @@
     </div>
     <div class="content pb-1 px-1 my-3">
         <h1>Login</h1>
-        <form action="" class="form mt-1">
+        <form action="{{ route('SignInProcess') }}" method="post" class="form mt-1">
+            @csrf
+            @error('loginError')
+            <div class="radius-sm pl-1 alert-danger">
+                <p>email atau password anda tidak cocok</p>
+            </div>   
+            @enderror
             <h3 class="mt-1">Email</h3>
             <input type="email" name="" id="" class="form-text" placeholder="Masukkan alamat email anda" required>
             <h3 class="mt-1">Password</h3>
