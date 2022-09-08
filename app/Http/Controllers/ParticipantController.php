@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\participants;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,16 +14,16 @@ class ParticipantController extends Controller
     }
     public function signUpProcess(Request $request){
         $validated = $this->validate($request, [
-            'email' => 'email|unique:participants',
+            'email' => 'email|unique:users',
             'password' => 'required|confirmed|max:255|min:8'
         ]);
 
         if ($validated) {
-            $participant = new participants();
+            $participant = new User();
             $participant->email = $validated['email'];
             $participant->password = Hash::make($validated['password']);
             $participant->save();
-            redirect(route('signIn'));
+            return redirect(route('SignIn'));
         }else{
             return back();
         }
@@ -40,9 +40,11 @@ class ParticipantController extends Controller
 
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
-            return redirect(route('CreateTeam'));
+            return redirect()->intended('Dashboard');
         }else{
-            return back()->withErrors(['loginError'=>'Email atau password anda tidak cocok']);
+            return back()->withErrors([
+                'email' => 'Username atau password tidak cocok',
+            ]); 
         }
     }
     public function CreateTeam(){

@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('participants', function (Blueprint $table) {
-            $table->id('participant_id');
+        Schema::create('users', function (Blueprint $table) {
+            $table->id('user_id');
             $table->string('email');
             $table->string('password');
             $table->timestamps();
+        });
+        Schema::table('admins',function (Blueprint $table){
+            $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('participants');
+        Schema::dropIfExists('users');
     }
 };
