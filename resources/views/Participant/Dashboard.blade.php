@@ -5,7 +5,7 @@
         <h1>Welcome, team bla bla</h1>
     </div>
     <div class="status">
-        <div class="alert alert-danger">
+        <div class="flash alert-danger">
             Tim anda belum melakukan pembayaran
         </div>
     </div>

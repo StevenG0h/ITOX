@@ -8,7 +8,7 @@
     </div>
     <div class="content pb-1 px-1 my-3">
         <h1>Login</h1>
-        <form action="{{ route('SignInProcess') }}" method="post" class="form mt-1">
+        <form action="{{ route('login') }}" method="post" class="form mt-1">
             @csrf
             @error('email')
             <div class="radius-sm pl-1 alert-danger">
@@ -22,6 +22,6 @@
             <input type="password" name="password" id="" class="form-text" placeholder="Masukkan password" required>
             <input type="submit" class="button my-1 p1" value="Login">
         </form>
-        <p>Belum punya akun? <a href="{{ route('SignUp') }}">klik untuk Daftar</a></p>
+        <p>Belum punya akun? <a href="{{ route('register') }}">klik untuk Daftar</a></p>
     </div>
 @endsection

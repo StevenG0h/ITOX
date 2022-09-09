@@ -15,6 +15,15 @@ a{
     color: var(--accent2);
     text-decoration: none;
 }
+a:hover{
+    color: var(--text);
+}
+.dropdown-item{
+    color: var(--text);
+}
+.dropdown-item:hover{
+    background-color: var(--bg) !important;
+}
 header{
     background-color: var(--primary);
     height: 3vw;
@@ -152,12 +161,12 @@ footer{
     flex-direction: column;
     gap: 1em;
 }
-.alert{
+.flash{
     border-radius: 1em;
     padding: 1em;
     font-weight: bold;
 }
-.alert a{
+.flash a{
     font-weight: bolder;
     text-decoration: underline;
 }

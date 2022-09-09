@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class loginCheck
+class regisCheck
 {
     /**
      * Handle an incoming request.
@@ -16,6 +17,10 @@ class loginCheck
      */
     public function handle(Request $request, Closure $next)
     {
+        $user = Auth::user();
+        if($user->kode_tim == null){
+            return redirect()->intended('CreateTeam');
+        }
         return $next($request);
     }
 }

@@ -8,7 +8,7 @@
     </div>
     <div class="content pb-1 px-1 my-3 ">
         <h1>Daftar</h1>
-        <form action="{{ route('SignUpProcess') }}" method="post" class="form mt-1">
+        <form action="{{ route('register') }}" method="post" class="form mt-1">
             @csrf
             @error('password')
             <div class="radius-sm pl-1 alert-danger">
@@ -29,6 +29,6 @@
             <input type="password" name="password_confirmation" id="" class="form-text" placeholder="Ketik ulang passsword anda" required>
             <input type="submit" class="button mt-1" value="Daftar">
         </form>
-        <p>Sudah punya akun? <a href="{{ route('SignIn') }}"> klik untuk login</a></p>
+        <p>Sudah punya akun? <a href="{{ route('login') }}"> klik untuk login</a></p>
     </div>
 @endsection

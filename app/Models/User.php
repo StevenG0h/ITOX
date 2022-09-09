@@ -12,5 +12,5 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable; 
-    protected $fillable = ['email','password','created_at'];
+    protected $fillable = ['kode_tim','email','password','created_at'];
 }
