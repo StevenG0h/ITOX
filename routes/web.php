@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ParticipantController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,13 +20,25 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function (){
-    Route::get('/CreateTeam', [ParticipantController::class,'CreateTeam'])->name('CreateTeam');
-    Route::get('/AddMember', [ParticipantController::class,'AddMember'])->name('AddMember');
-    Route::get('/AddInstitution', [ParticipantController::class,'AddInstitution'])->name('AddInstitution');
-    Route::get('/Dashboard', [ParticipantController::class,'Dashboard'])->name('Dashboard')->middleware('regis.check');
+    Route::get('/create-team', [ParticipantController::class,'CreateTeam'])->name('CreateTeam');
+    Route::post('/register-team', [ParticipantController::class,'RegisterTeam'])->name('RegisterTeam');
+    Route::get('/add-member', [ParticipantController::class,'AddMember'])->name('AddMember');
+    Route::post('/adding-member', [ParticipantController::class,'AddMemberProcess'])->name('AddMemberProcess');
+    Route::get('/add-institution', [ParticipantController::class,'AddInstitution'])->name('AddInstitution');
+    Route::post('/adding-institution', [ParticipantController::class,'AddInstitutionProcess'])->name('AddInstitutionProcess');
+    Route::get('/dashboard', [ParticipantController::class,'Dashboard'])->name('Dashboard');
+    Route::get('/payment', [ParticipantController::class,'Payment'])->name('Payment');
+    Route::post('/payment-process', [ParticipantController::class,'PaymentProcess'])->name('PaymentProcess');
 });
 
+Route::middleware(['isAdmin'])->group(function(){
+    Route::get('/admin-dashboard', [AdminController::class,'Dashboard'])->name('AdminDashboard');
+});
+
+Route::middleware(['guest'])->group(function (){
+    Route::get('/admin-login', [AdminController::class,'AdminLogin'])->name('AdminLogin');
+    Route::post('/admin-login-process', [AdminController::class,'AdminLoginProcess'])->name('AdminLoginProcess');
+});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

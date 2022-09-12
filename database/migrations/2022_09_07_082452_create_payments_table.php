@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id('payment_id');
             $table->unsignedBigInteger('kode_tim');
-            $table->string('member_id');
+            $table->string('bukti_pembayaran');
             $table->boolean('verified');
             $table->timestamps();
         });

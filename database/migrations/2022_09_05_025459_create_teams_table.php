@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id('kode_tim');
             $table->unsignedBigInteger('kode_lomba');
-            $table->unsignedBigInteger('kode_ketua');
+            $table->unsignedBigInteger('kode_ketua')->nullable();
             $table->string('nama_tim');
             $table->string('nomor_hp');
-            $table->string('institusi_asal');
-            $table->string('jenis_institusi');
+            $table->string('institusi_asal')->nullable();
+            $table->string('jenis_institusi')->nullable();
             $table->timestamps();
 
             

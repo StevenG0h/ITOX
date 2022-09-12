@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->timestamps();
-            $table->foreign('kode_tim')->references('kode_tim')->on('teams')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('kode_tim')->references('kode_tim')->on('teams')->nullOnDelete()->cascadeOnUpdate();
         });
         Schema::table('admins',function (Blueprint $table){
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();

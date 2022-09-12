@@ -2,12 +2,22 @@
 
 @section('ParticipantDashboard')
     <div class="welcome p1">
-        <h1>Welcome, team bla bla</h1>
+        <h1>Welcome, team {{ $team->nama_tim }}</h1>
     </div>
     <div class="status">
+        @if($paymentStatus == 1)
         <div class="flash alert-danger">
             Tim anda belum melakukan pembayaran
         </div>
+        @elseif($paymentStatus ==2)
+        <div class="flash alert-warning">
+            Pembayaran sedang diverifikasi
+        </div>
+        @else
+        <div class="flash alert-succes">
+            Pembayaran sukses
+        </div>
+        @endif
     </div>
     <div class="timeline pt-1 p1 radius-sm">
         <h2>Timeline</h2>
@@ -35,21 +45,25 @@
     <div class="team-data p1 radius-sm">
         <h2>Data Tim</h2>
         <ul>
-            <li>Nama Tim : Bla Bla</li>
-            <li>Cabang Lomba : Web Design</li>
-            <li>Kategori : Mahasiswa</li>
-            <li>Institusi asal : Politeknik Caltex Riau</li>
+            <li>Nama Tim : {{ $team->nama_tim }}</li>
+            <li>Cabang Lomba : {{ $namaLomba }}</li>
+            <li>Kategori : {{ $team->jenis_institusi }}</li>
+            <li>Institusi asal : {{ $team->institusi_asal }}</li>
         </ul>
     </div>
     <div class="team-data p1 radius-sm">
         <h2>Daftar Anggota</h2>
         <ul>
-            <li>Ketua : Interimo</li>
-            <li>Anggota : Adapare</li>
-            <li>Anggota : Dorime</li>
+            @foreach($members as $member)
+                @if($member->member_id == $team->kode_ketua)
+                    <li>Ketua : {{ $member->nama }}</li>
+                @else
+                    <li>Anggota : {{ $member->nama }}</li>
+                @endif
+            @endForeach
         </ul>
     </div>
-    <a href="" class="payment radius-sm p1">
+    <a href="{{ route('Payment') }}" class="payment radius-sm p1">
         <h3>Pembayaran</h3>
     </a>
     <a href="" class="payment radius-sm p1">

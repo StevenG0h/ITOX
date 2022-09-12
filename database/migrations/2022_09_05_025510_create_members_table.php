@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id('member_id');
-            $table->unsignedBigInteger('kode_tim');
+            $table->unsignedBigInteger('kode_tim')->nullable();
+            $table->string('nomor_identitas');
             $table->string('nama');
             $table->string('url_dokumen');
             $table->timestamps();
