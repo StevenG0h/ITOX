@@ -35,6 +35,7 @@ Route::middleware(['isAdmin'])->group(function(){
     Route::get('/admin-dashboard', [AdminController::class,'Dashboard'])->name('AdminDashboard');
 });
 
+Route::get('/show-participant', [AdminController::class,'showParticipant'])->name('showParticipant');
 Route::middleware(['guest'])->group(function (){
     Route::get('/admin-login', [AdminController::class,'AdminLogin'])->name('AdminLogin');
     Route::post('/admin-login-process', [AdminController::class,'AdminLoginProcess'])->name('AdminLoginProcess');

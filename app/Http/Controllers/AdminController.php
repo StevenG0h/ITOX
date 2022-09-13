@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -13,6 +14,13 @@ class AdminController extends Controller
     }
     public function adminLogin(){
         return view('Admin/Auth/adminLogin');
+    }
+    public function showParticipant(){
+        $participant = DB::table('members')
+        ->join('teams', 'members.kode_tim', '=', 'teams.kode_tim')
+        ->join('competitions','teams.kode_lomba','=','competitions.kode_lomba')
+        ->get();
+        dd($participant);
     }
     public function adminLoginProcess(Request $request){
         $validate = $request->validate([
@@ -31,7 +39,12 @@ class AdminController extends Controller
         }
         return back()->withErrors(['email' => 'The provided credentials do not match our records.']);
     }
-    public function adminRegister(){
+    public function adminDashboard(){
+        dd($request);
+    }
+
+    public function adminRegister(Request $request){
+        
         return view('Admin/Auth/AdminRegister');
     }
 }

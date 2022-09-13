@@ -144,6 +144,7 @@ class ParticipantController extends Controller
         }
         return redirect()->intended('dashboard');
     }
+
     public function Dashboard(){
         if ($this->checkTeam() == false) {
             return redirect()->intended('create-team');
@@ -154,6 +155,7 @@ class ParticipantController extends Controller
         if($this->checkMember() == false){
             return redirect()->intended('add-member');
         }
+        
         $auth = Auth::user();
         $team = Team::where('kode_tim',$auth->kode_tim)->first();
         $member = Member::where('kode_tim',$auth->kode_tim)->get();
