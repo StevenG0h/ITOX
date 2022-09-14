@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nomor_identitas');
             $table->string('nama');
             $table->string('url_dokumen');
+            $table->boolean('verify');
             $table->timestamps();
         });
         Schema::table('members',function(Blueprint $table){

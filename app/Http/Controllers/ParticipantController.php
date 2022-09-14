@@ -76,13 +76,14 @@ class ParticipantController extends Controller
         $user = Auth::user();
         $user->kode_tim = $team->kode_tim;
         $user->save();
-        $file_location = 'public/MemberDoc/'.$request->nama_tim.'/'.$request->nomor_identitas;
+        $file_location = 'MemberDoc/'.$request->nama_tim.'/'.$request->nomor_identitas;
         $member->nama = $request->nama;
         $member->kode_tim = $team->kode_tim;
         $member->nomor_identitas = $request->nomor_identitas;
         $member->url_dokumen = $file_location.'/'.$request->file('url_dokumen')->getClientOriginalName();
+        $member->verify = 0;
         $member->save();
-        $request->file('url_dokumen')->storeAs($file_location,$request->file('url_dokumen')->getClientOriginalName());
+        $request->file('url_dokumen')->storeAs('public/'.$file_location,$request->file('url_dokumen')->getClientOriginalName());
         $team->kode_ketua = $member->member_id;
         $team->save();
         return redirect()->intended('add-institution');
@@ -134,13 +135,13 @@ class ParticipantController extends Controller
         ]);
         for ($i=0; $i < count($request->kode_tim); $i++) { 
             $member = new Member();
-            $file_location =  $file_location = 'public/MemberDoc/'.$request->nama_tim[$i].'/'.$request->nomor_identitas[$i];
+            $file_location = 'MemberDoc/'.$request->nama_tim[$i].'/'.$request->nomor_identitas[$i];
             $member->nama = $request->nama[$i];
             $member->kode_tim = $request->kode_tim[$i];
             $member->nomor_identitas = $request->nomor_identitas[$i];
             $member->url_dokumen = $file_location.'/'.$request->file('url_dokumen')[$i]->getClientOriginalName();
             $member->save();
-            $request->file('url_dokumen')[$i]->storeAs($file_location,$request->file('url_dokumen')[$i]->getClientOriginalName());
+            $request->file('url_dokumen')[$i]->storeAs('public/'.$file_location,$request->file('url_dokumen')[$i]->getClientOriginalName());
         }
         return redirect()->intended('dashboard');
     }
