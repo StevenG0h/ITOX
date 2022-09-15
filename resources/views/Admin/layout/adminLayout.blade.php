@@ -54,25 +54,25 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('AdminDashboard') }}">
                     <i class="fas fa-fw fa-user-alt"></i>
                     <span>Peserta</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('AdminDashboard') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Tim</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('showCompetitions') }}">
                     <i class="fas fa-fw fa-trophy"></i>
                     <span>Cabang Lomba</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('showCompetitions') }}">
                     <i class="fas fa-fw fa-lock"></i>
                     <span>Admin</span>
                 </a>

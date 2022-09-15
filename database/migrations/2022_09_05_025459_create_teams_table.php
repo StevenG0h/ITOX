@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->id('kode_tim');
-            $table->unsignedBigInteger('kode_lomba');
+            $table->unsignedBigInteger('kode_lomba')->nullable();
             $table->unsignedBigInteger('kode_ketua')->nullable();
             $table->string('nama_tim');
             $table->string('nomor_hp');

@@ -36,9 +36,12 @@ Route::middleware(['isAdmin'])->group(function(){
     Route::post('/verify-participant', [AdminController::class,'verifyParticipant'])->name('verifyParticipant');
     Route::post('/delete-participant', [AdminController::class,'deleteParticipant'])->name('deleteParticipant');
     Route::post('/doc-not-valid-participant', [AdminController::class,'docNotValid'])->name('docNotValid');
+    Route::get('/competitions', [AdminController::class,'showCompetitions'])->name('showCompetitions');
+    Route::get('/add-competitions', [AdminController::class,'addCompetitionsView'])->name('addCompetitionsView');
+    Route::post('/add-competitions-process', [AdminController::class,'addCompetitionsProcess'])->name('addCompetitionsProcess');
 });
 
-Route::get('/show-participant', [AdminController::class,'showParticipant'])->name('showParticipant');
+
 Route::middleware(['guest'])->group(function (){
     Route::get('/admin-login', [AdminController::class,'AdminLogin'])->name('AdminLogin');
     Route::post('/admin-login-process', [AdminController::class,'AdminLoginProcess'])->name('AdminLoginProcess');

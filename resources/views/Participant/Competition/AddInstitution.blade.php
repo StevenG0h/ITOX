@@ -8,7 +8,7 @@
     </div>
     <div class="content pb-1 px-1 my-1">
         
-        <h1>Institusi</h1>
+        <h1>Pilih Lomba</h1>
         <form action="{{ route('AddInstitutionProcess') }}" method="post" class="form my-1" enctype="multipart/form-data">
             @csrf
             @error('jenis_institusi')
@@ -23,14 +23,13 @@
                 
             </div>   
             @enderror
-            <h3 class="mt-1">Institusi Asal</h3>
-            <input type="text" name="institusi_asal" id="" class="form-text" required placeholder="Masukkan nama sekolah atau kampus anda">
-            <h3 class="mt-1">Jenis Institusi</h3>
-            <select name="jenis_institusi" id="" class="select-option" required>
-                <option value="">Pilih Jenis Institusi</option>
-                <option value="SMA/K/MA">SMA/K/MA</option>
-                <option value="Perguruan Tinggi">Perguruan Tinggi</option>
+            <h3 class="mt-1">Cabang Lomba</h3>
+            <select name="kode_lomba" id="" class="select-option" required>
+                @foreach($competitions as $competition)
+                    <option value="{{ $competition->kode_lomba }}">{{ $competition->nama_lomba }}</option>
+                @endforeach
             </select>
+            
             <input type="submit" class="button mt-1" value="Selanjutnya">
         </form>
     </div>

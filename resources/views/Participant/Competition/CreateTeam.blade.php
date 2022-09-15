@@ -21,11 +21,14 @@
             <input type="text" name="nomor_hp" id="" class="form-text" required>
             <h3 class="mt-1">Idetitas Ketua(Kartu Pelajar/Surat Keterangan Aktif)</h3>
             <input type="file"  name="url_dokumen" id="data-diri" class="upload-file mt-1" required>
-            <h3 class="mt-1">Cabang Lomba</h3>
-            <select name="kode_lomba" id="" class="select-option" required>
-                <option value="1">Web</option>
-                <option value="2">Jaringan</option>
-                <option value="3">Pemrograman</option>
+            
+            <h3 class="mt-1">Institusi Asal</h3>
+            <input type="text" name="institusi_asal" id="" class="form-text" required placeholder="Masukkan nama sekolah atau kampus anda">
+            <h3 class="mt-1">Jenis Institusi</h3>
+            <select name="jenis_institusi" id="" class="select-option" required>
+                <option value="">Pilih Jenis Institusi</option>
+                <option value="SMA/K/MA">SMA/K/MA</option>
+                <option value="Perguruan Tinggi/umum">Perguruan Tinggi</option>
             </select>
             <input type="submit" class="button mt-1" value="Selanjutnya">
         </form>

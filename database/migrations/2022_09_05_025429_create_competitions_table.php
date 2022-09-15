@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('nama_lomba');
             $table->integer('max_anggota');
+            $table->integer('kategori');
             $table->date('batas_pendaftaran');
             $table->string('url_guidebook');
         });

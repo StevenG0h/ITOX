@@ -28,7 +28,7 @@ class ParticipantController extends Controller
         $user = Auth::user();
         $kodeTim = $user->kode_tim;
         $team = Team::where('kode_tim',$kodeTim)->first();
-        if($team->institusi_asal != null){
+        if($team->kode_lomba != null){
             return true;
         }else{
             return false;
@@ -61,7 +61,8 @@ class ParticipantController extends Controller
             'nomor_hp' => 'required|max:15|unique:teams',
             'nomor_identitas' => 'required|max:255|unique:members',
             'nama' => 'required|max:255',
-            'kode_lomba'=> 'required'
+            'institusi_asal' => 'required|max:255',
+            'jenis_institusi' => 'required|max:30',
         ]);
         $request->validate([
             'url_dokumen'=>[
@@ -70,7 +71,8 @@ class ParticipantController extends Controller
         ]);
         $team->nama_tim = $request->nama_tim;
         $team->nomor_hp = $request->nomor_hp;
-        $team->kode_lomba = $request->kode_lomba;
+        $team->institusi_asal = $request->institusi_asal;
+        $team->jenis_institusi = $request->jenis_institusi;
         $team->save();
 
         $user = Auth::user();
@@ -89,24 +91,30 @@ class ParticipantController extends Controller
         return redirect()->intended('add-institution');
     }
     public function AddInstitution(){
+        $auth = Auth::user();
+        $team = Team::where('kode_tim',$auth->kode_tim)->first();
+
+        if($team->jenis_institusi == 'Perguruan Tinggi/umum'){
+            $competition = Competition::select(['nama_lomba','kode_lomba'])->where('kategori','>','0')->get();
+        }else{
+            $competition = Competition::select(['nama_lomba','kode_lomba'])->where('kategori','=','0')->get();
+        }
         if ($this->checkInstitution() == true) {
             return redirect()->intended('dashboard');
         }
         if ($this->checkTeam() == false) {
             return redirect()->intended('create-team');
         }
-        return view('Participant/Competition/AddInstitution');
+        return view('Participant/Competition/AddInstitution')->with(['competitions'=>$competition]);
     }
     public function AddInstitutionProcess(Request $request){
         $user = Auth::user();
         $kodeTim = $user->kode_tim;
         $team = Team::where('kode_tim',$kodeTim)->first();
         $validated = $request->validate([
-            'institusi_asal' => 'required|max:255',
-            'jenis_institusi' => 'required|max:30',
+            'kode_lomba' => 'required'
         ]);
-        $team->institusi_asal = $request->institusi_asal;
-        $team->jenis_institusi = $request->jenis_institusi;
+        $team->kode_lomba = $request->kode_lomba;
         $team->save();
         return redirect('add-member');
     }
@@ -140,6 +148,7 @@ class ParticipantController extends Controller
             $member->kode_tim = $request->kode_tim[$i];
             $member->nomor_identitas = $request->nomor_identitas[$i];
             $member->url_dokumen = $file_location.'/'.$request->file('url_dokumen')[$i]->getClientOriginalName();
+            $member->verify = 0;
             $member->save();
             $request->file('url_dokumen')[$i]->storeAs('public/'.$file_location,$request->file('url_dokumen')[$i]->getClientOriginalName());
         }
