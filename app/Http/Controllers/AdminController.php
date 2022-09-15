@@ -91,20 +91,67 @@ class AdminController extends Controller
         $competition->max_anggota = $request->max_anggota;
         $competition->kategori = $request->kategori;
         $competition->batas_pendaftaran = $request->batas_pendaftaran;
+        $competition->desc = $request->desc;
         $file_location = 'Guidebook/'.$request->nama_lomba;
         $maskot_location = 'maskot/'.$request->nama_lomba;
         $competition->url_guidebook = $file_location.'/'.$request->file('url_guidebook')->getClientOriginalName();
-        $competition->maskot = $maskot_location.'/'.$request->file('url_guidebook')->getClientOriginalName();
+        $competition->maskot = $maskot_location.'/'.$request->file('maskot')->getClientOriginalName();
         $competition->save();
         $request->file('url_guidebook')->storeAs('public/'.$file_location,$request->file('url_guidebook')->getClientOriginalName());
-        $request->file('maskot')->storeAs('public/'.$file_location,$request->file('url_guidebook')->getClientOriginalName());
+        $request->file('maskot')->storeAs('public/'.$maskot_location,$request->file('maskot')->getClientOriginalName());
         return redirect('competitions');
     }
 
-    
+    public function deleteCompetitions(Request $request){
+        $competition = Competition::where('kode_lomba',$request->kode_lomba)->first();
+        $competition->delete();
+        return redirect('competitions');
+    }
 
-    public function deleteCompetition(Request $request){
+    public function updateCompetitionView(Request $request){
+        $competition = Competition::where('kode_lomba',$request->kode_lomba)->first();
+        return view('Admin/Manage/UpdateCompetition')->with(['competition'=>$competition]);
+    }
 
+    public function UpdateCompetitionProcess(Request $request){
+        $request->validate([
+            'nama_lomba'=>'required',
+            'batas_pendaftaran'=>'required',
+            'max_anggota'=>'required',
+            'desc'=>'required|max:100',
+        ]);
+        $competition = Competition::where('kode_lomba',$request->kode_lomba)->first();
+        $competition->nama_lomba = $request->nama_lomba;
+        $competition->max_anggota = $request->max_anggota;
+        $competition->kategori = $request->kategori;
+        $competition->batas_pendaftaran = $request->batas_pendaftaran;
+        $competition->desc = $request->desc;
+        $competition->save();
+        return redirect('competitions');
+    }
+
+    public function updateMaskot(Request $request){
+        $request->validate([
+            'maskot'=>['required',File::types(['png'])]
+        ]);
+        $competition = Competition::where('kode_lomba',$request->kode_lomba)->first();
+        $maskot_location = 'maskot/'.$request->nama_lomba;
+        $competition->maskot = $maskot_location.'/'.$request->file('maskot')->getClientOriginalName();
+        $competition->save();
+        $request->file('maskot')->storeAs('public/'.$maskot_location,$request->file('maskot')->getClientOriginalName());
+        return redirect('competitions');
+    }
+
+    public function updateGuidebook(Request $request){
+        $request->validate([
+            'url_guidebook'=>['required',File::types(['pdf'])]
+        ]);
+        $competition = Competition::where('kode_lomba',$request->kode_lomba)->first();
+        $file_location = 'Guidebook/'.$request->nama_lomba;
+        $competition->url_guidebook = $file_location.'/'.$request->file('url_guidebook')->getClientOriginalName();
+        $competition->save();
+        $request->file('url_guidebook')->storeAs('public/'.$file_location,$request->file('url_guidebook')->getClientOriginalName());
+        return redirect('competitions');
     }
 
     public function adminRegister(Request $request){

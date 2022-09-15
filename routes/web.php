@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\landing;
 use App\Http\Controllers\ParticipantController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', [landing::class,'index'])->name('landing');
+Route::get('/', function(){
+    return redirect('/home');
+})->name('landing');
 
 Route::middleware(['auth'])->group(function (){
     Route::get('/create-team', [ParticipantController::class,'CreateTeam'])->name('CreateTeam');
@@ -39,6 +41,11 @@ Route::middleware(['isAdmin'])->group(function(){
     Route::get('/competitions', [AdminController::class,'showCompetitions'])->name('showCompetitions');
     Route::get('/add-competitions', [AdminController::class,'addCompetitionsView'])->name('addCompetitionsView');
     Route::post('/add-competitions-process', [AdminController::class,'addCompetitionsProcess'])->name('addCompetitionsProcess');
+    Route::post('/delete-competitions-process', [AdminController::class,'deleteCompetitions'])->name('deleteCompetitions');
+    Route::post('/update-competitions', [AdminController::class,'updateCompetitionView'])->name('updateCompetitionView');
+    Route::post('/update-competitions-maskot', [AdminController::class,'updateMaskot'])->name('updateMaskot');
+    Route::post('/update-competitions-Guidebook', [AdminController::class,'updateGuidebook'])->name('updateGuidebook');
+    Route::post('/update-competitions-process', [AdminController::class,'updateCompetitionProcess'])->name('updateCompetitionProcess');
 });
 
 

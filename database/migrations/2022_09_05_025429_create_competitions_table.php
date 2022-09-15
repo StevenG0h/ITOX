@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('nama_lomba');
             $table->integer('max_anggota');
             $table->integer('kategori');
+            $table->string('desc');
             $table->date('batas_pendaftaran');
             $table->string('url_guidebook');
+            $table->string('maskot');
         });
     }
 

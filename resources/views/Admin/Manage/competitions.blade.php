@@ -15,6 +15,7 @@
                             <th>Anggota maksimal</th>
                             <th>Kategori</th>
                             <th>Batas pendaftaran</th>
+                            <th>Maskot</th>
                             <th>Guidebook</th>
                             <th>Edit</th>
                             <th>Hapus</th>
@@ -43,21 +44,26 @@
                                 {{ $competition->batas_pendaftaran }}
                             </td>
                             <td>
+                                <a href="{{ asset('storage/'.$competition->maskot) }}">
+                                    maskot
+                                </a>
+                            </td>
+                            <td>
                                 <a href="{{ asset('storage/'.$competition->url_guidebook) }}">
-                                    dokumen
+                                    guidebook
                                 </a>
                             </td>
                             <td class="text-center">
-                                <form action="{{ route('verifyParticipant') }}" method="post">
+                                <form action="{{ route('updateCompetitionView') }}" method="post">
                                     @csrf
-                                    <input type="hidden" name="member_id" value="{{ $competition->kode_lomba }}">
+                                    <input type="hidden" name="kode_lomba" value="{{ $competition->kode_lomba }}">
                                     <input type="submit" value="Edit" class="btn btn-warning">
                                 </form>
                             </td>
                             <td class="text-center">
-                                <form action="{{ route('docNotValid') }}" method="post">
+                                <form action="{{ route('deleteCompetitions') }}" method="post">
                                     @csrf
-                                    <input type="hidden" name="member_id" value="{{ $competition->kode_lomba }}">
+                                    <input type="hidden" name="kode_lomba" value="{{ $competition->kode_lomba }}">
                                     <input type="submit" value="Hapus" class="btn btn-danger">
                                     
                                 </form>

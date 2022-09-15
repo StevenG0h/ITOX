@@ -39,42 +39,58 @@
                 </div>
                 @enderror
                 
-                <form action="{{ route('addCompetitionsProcess') }}" enctype="multipart/form-data" method="post" class="w-80">
+                <form action="{{ route('updateCompetitionProcess') }}" enctype="multipart/form-data" method="post" class="w-80">
                     @csrf
+                    <input type="hidden" name="kode_lomba" value="{{ $competition->kode_lomba }}">
                     <div class="form-group">
                         <label for="">Nama Lomba</label>
-                        <input type="text" name="nama_lomba" id="nama-lomba" class="form-control" placeholder="Nama Lomba">
+                        <input type="text" name="nama_lomba" id="nama-lomba" class="form-control" value="{{ $competition->nama_lomba }}" placeholder="Nama Lomba">
                     </div>
                     <div class="form-group">   
                         <label for="">Jumlah per Tim</label>
-                        <input type="number" name="max_anggota" id="max-anggota" class="form-control" placeholder="Batas Anggota">
+                        <input type="number" name="max_anggota" id="max-anggota" value="{{ $competition->max_anggota }}" class="form-control" placeholder="Batas Anggota">
                     </div>
                     <div class="form-group">
                         <label for="">Kategori Peserta</label>
                         <select name="kategori" id="" class="form-control">
                             <option value="">Kategori Peserta</option>
-                            <option value="0">SMA / SMK</option>
-                            <option value="1">Mahasiswa / umum</option>
-                            <option value="2">SMA / SMK dan Mahasiswa / umum</option>
+                            <option value="0" @if($competition->kategori == 0) selected @endif >SMA / SMK</option>
+                            <option value="1" @if($competition->kategori == 1) selected @endif>Mahasiswa / umum</option>
+                            <option value="2" @if($competition->kategori == 2) selected @endif>SMA / SMK dan Mahasiswa / umum</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="">Batas Pendaftaran</label>
-                        <input type="date" name="batas_pendaftaran" id="batas-pendaftaran" class="form-control" placeholder="Batas Pendaftaran">
+                        <input type="date" name="batas_pendaftaran" value="{{ $competition->batas_pendaftaran }}" id="batas-pendaftaran" class="form-control" placeholder="Batas Pendaftaran">
                     </div>
                     <div class="form-group">
                         <label for="">Deskripsi singkat lomba</label>
-                        <textarea name="desc" id="" class="form-control" cols="30" rows="10"></textarea>
+                        <textarea name="desc" id="" class="form-control" cols="30" rows="10">{{ $competition->desc }}</textarea>
                     </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-primary">
+                    </div>
+                </form>
+                <form action="{{ route('updateMaskot') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <h2>Update Maskot</h2>
+                    <input type="hidden" name="kode_lomba" value="{{ $competition->kode_lomba }}">
                     <div class="form-group">
                         <label for="">Upload Maskot Lomba</label>
                         <input type="file" name="maskot" id="url-guidebook" class="form-control-file" placeholder="Guidebook">
                     </div>
                     <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-primary">
+                    </div>
+                </form>
+                <form action="{{ route('updateGuidebook') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <h2>Update Guidebook</h2>
+                    <input type="hidden" name="kode_lomba" value="{{ $competition->kode_lomba }}">
+                    <div class="form-group">
                         <label for="">Upload Guidebook</label>
                         <input type="file" name="url_guidebook" id="url-guidebook" class="form-control-file" placeholder="Guidebook">
                     </div>
-                    
                     <div class="form-group">
                         <input type="submit" name="submit" class="btn btn-primary">
                     </div>
