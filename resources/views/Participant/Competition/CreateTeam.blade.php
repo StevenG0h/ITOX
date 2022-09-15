@@ -11,6 +11,36 @@
         <h1>Buat Tim</h1>
         <form action="{{ route('RegisterTeam') }}" method="post" class="form my-1" enctype="multipart/form-data">
             @csrf
+            @error('nama_tim')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+                @error('nomor_hp')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+                @error('nomor_identitas')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+                @error('nama')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+                @error('institusi_asal')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+                @error('jenis_institusi')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+                @enderror
             <h3 class="mt-1">Nama Tim</h3>
             <input type="text" name="nama_tim" id="" class="form-text" required>
             <h3 class="mt-1">Nama Ketua Tim</h3>
