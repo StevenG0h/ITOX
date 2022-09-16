@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Competition;
 use App\Models\Member;
+use App\Models\payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -152,6 +153,36 @@ class AdminController extends Controller
         $competition->save();
         $request->file('url_guidebook')->storeAs('public/'.$file_location,$request->file('url_guidebook')->getClientOriginalName());
         return redirect('competitions');
+    }
+
+    public function teamsView(){
+        $team = DB::table('teams')
+        ->join('members', 'members.member_id', '=', 'teams.kode_ketua')
+        ->join('competitions','teams.kode_lomba','=','competitions.kode_lomba')
+        ->join('payments','teams.kode_tim','=','payments.kode_tim')
+        ->get();
+        return view('Admin/Manage/Team')->with(['teams'=>$team]);
+    }
+
+    public function verifyPayment(Request $request){
+        $participant = payment::where('kode_tim',$request->kode_tim)->first();
+        if ($participant->verified == 0) {
+            $participant->verified = 1;
+        }else{
+            $participant->verified == 0;
+        }
+        $participant->save();
+        return redirect('teams');
+    }   
+    public function verifyPaymentNotValid(Request $request){
+        $participant = payment::where('kode_tim',$request->kode_tim)->first();
+        if ($participant->verified == 0) {
+            $participant->verified = 2;
+        }else{
+            $participant->verified == 0;
+        }
+        $participant->save();
+        return redirect('teams');
     }
 
     public function adminRegister(Request $request){

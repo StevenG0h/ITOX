@@ -26,8 +26,8 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/register-team', [ParticipantController::class,'RegisterTeam'])->name('RegisterTeam');
     Route::get('/add-member', [ParticipantController::class,'AddMember'])->name('AddMember');
     Route::post('/adding-member', [ParticipantController::class,'AddMemberProcess'])->name('AddMemberProcess');
-    Route::get('/add-institution', [ParticipantController::class,'AddInstitution'])->name('AddInstitution');
-    Route::post('/adding-institution', [ParticipantController::class,'AddInstitutionProcess'])->name('AddInstitutionProcess');
+    Route::get('/add-competition', [ParticipantController::class,'AddInstitution'])->name('AddInstitution');
+    Route::post('/add-competition-process', [ParticipantController::class,'AddInstitutionProcess'])->name('AddInstitutionProcess');
     Route::get('/dashboard', [ParticipantController::class,'Dashboard'])->name('Dashboard');
     Route::get('/payment', [ParticipantController::class,'Payment'])->name('Payment');
     Route::post('/payment-process', [ParticipantController::class,'PaymentProcess'])->name('PaymentProcess');
@@ -46,6 +46,9 @@ Route::middleware(['isAdmin'])->group(function(){
     Route::post('/update-competitions-maskot', [AdminController::class,'updateMaskot'])->name('updateMaskot');
     Route::post('/update-competitions-Guidebook', [AdminController::class,'updateGuidebook'])->name('updateGuidebook');
     Route::post('/update-competitions-process', [AdminController::class,'updateCompetitionProcess'])->name('updateCompetitionProcess');
+    Route::get('/teams', [AdminController::class,'teamsView'])->name('teamsView');
+    Route::post('/verify-payment', [AdminController::class,'verifyPayment'])->name('verifyPayment');
+    Route::post('/verify-payment-not-valid', [AdminController::class,'verifyPaymentNotValid'])->name('verifyPaymentNotValid');
 });
 
 

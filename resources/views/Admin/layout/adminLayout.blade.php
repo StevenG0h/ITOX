@@ -60,7 +60,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('AdminDashboard') }}">
+                <a class="nav-link" href="{{ route('teamsView') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Tim</span>
                 </a>

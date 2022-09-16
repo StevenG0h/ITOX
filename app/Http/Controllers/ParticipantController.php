@@ -88,7 +88,7 @@ class ParticipantController extends Controller
         $request->file('url_dokumen')->storeAs('public/'.$file_location,$request->file('url_dokumen')->getClientOriginalName());
         $team->kode_ketua = $member->member_id;
         $team->save();
-        return redirect()->intended('add-institution');
+        return redirect()->intended('add-competition');
     }
     public function AddInstitution(){
         $auth = Auth::user();
@@ -193,11 +193,11 @@ class ParticipantController extends Controller
         $payment =  new payment;
         $team = Team::where('kode_tim',$user->kode_tim)->first();
         $payment->kode_tim = $user->kode_tim;
-        $file_location = 'public/Bukti-pembayaran/'.$team->nama_tim;
+        $file_location = 'Bukti-pembayaran/'.$team->nama_tim;
         $payment->verified = 0;
         $payment->bukti_pembayaran = $file_location.'/'.$request->file('bukti_pembayaran')->getClientOriginalName();
         $payment->save();
-        $request->file('bukti_pembayaran')->storeAs($file_location,$request->file('bukti_pembayaran')->getClientOriginalName());
+        $request->file('bukti_pembayaran')->storeAs('public/'.$file_location,$request->file('bukti_pembayaran')->getClientOriginalName());
         return redirect()->intended('dashboard');
     }
 }

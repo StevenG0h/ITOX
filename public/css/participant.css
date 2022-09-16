@@ -308,6 +308,8 @@ footer{
 }
 .competition-item-image{
     width: 20%;
+    transform: scale(0);
+    transition: 0.4s;
     text-align: center;
 }
 .competition-item-image img{
@@ -315,6 +317,19 @@ footer{
     margin: 2em 0 2em 0;
 }
 .competition-slider-wrapper{
+    transition: 0.5s;
     width: 500%;
     display: flex;
+}
+.competition-carousel-subhead{
+    display: none;
+    transition: 0.4s;
+}
+.competition-carousel-head{
+    display: none;
+    transition: 0.4s;
+}
+.carousel-item-image-active{
+    transform: scale(1);
+    transition: 0.5s;
 }

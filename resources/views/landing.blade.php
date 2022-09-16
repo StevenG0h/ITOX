@@ -75,9 +75,13 @@
             <section class="competition my-1" id="competition">
                 <h1>Kategori Lomba</h1>
                 <div class="competition-item my-1">
-                    <h2>Web Design</h2>
+                    <h2 class="competition-carousel-head">Web Design</h2>
+                    <h2 class="competition-carousel-head">Poster</h2>
+                    <h2 class="competition-carousel-head">Jaringan</h2>
+                    <h2 class="competition-carousel-head">Web Design</h2>
+                    <h2 class="competition-carousel-head">Web Design</h2>
                     <div class="competition-slider-wrapper">
-                        <div class="competition-item-image">
+                        <div class="competition-item-image carousel-item-image-active">
                             <img src="{{ asset('image/WEB1.png') }}" alt="">
                         </div>
                         <div class="competition-item-image">
@@ -93,7 +97,11 @@
                             <img src="{{ asset('image/WEB1.png') }}" alt="">
                         </div>
                     </div>
-                    <h2>Batas Pendaftaran 3 November 2022</h2>
+                    <h2 class="competition-carousel-subhead">Batas Pendaftaran 3 November 2022</h2>
+                    <h2 class="competition-carousel-subhead">Batas Pendaftaran 4 November 2022</h2>
+                    <h2 class="competition-carousel-subhead">Batas Pendaftaran 5 November 2022</h2>
+                    <h2 class="competition-carousel-subhead">Batas Pendaftaran 6 November 2022</h2>
+                    <h2 class="competition-carousel-subhead">Batas Pendaftaran 7 November 2022</h2>
                     <div class="button-wrap">
                         <a href="" class="button">Unduh Guidebook</a>
                     </div>
@@ -107,6 +115,9 @@
 </html>
 <script>
 var carouselWrapper = document.querySelectorAll('.competition-slider-wrapper');
+var carouselItem = document.querySelectorAll('.competition-item-image');
+var carouselSubHead = document.querySelectorAll('.competition-carousel-subhead');
+var carouselHead = document.querySelectorAll('.competition-carousel-head');
 var carouselIndex = [];
 var carouselButtonIndex = [];
 for (let i = 0; i < carouselWrapper.length; i++) {
@@ -114,18 +125,34 @@ for (let i = 0; i < carouselWrapper.length; i++) {
     carouselButtonIndex[i] = 0;
 }
 function carousel(index,carousel) {
+    carouselItem[index].classList.add("carousel-item-image-active");
     carouselWrapper[carousel].style.transform = "translateX("+index*-20+"%)";
+    carouselSubHead[index].style.display = "block";
+    carouselHead[index].style.display = "block";
     carouselIndex[carousel] = index;
+    
+}
+function carouselFade(index,carousel){
+    if(index == -1){
+        index = 4;
+    }
+    carouselItem[index].classList.remove("carousel-item-image-active");
+    carouselWrapper[carousel].style.transform = "translateX("+index*-20+"%)";
+    carouselSubHead[index].style.display = "none";  
+    carouselHead[index].style.display = "none";  
 }
 function nextCarousel(){
+    
     for (let i = 0; i < carouselIndex.length; i++) {
         let carousel = carouselIndex[i];
         if(carousel == 4){
             carousel =-1;
         }
+        this.carouselFade(carousel,i)   
         this.carousel(carousel+1,i);
         
     }   
+    
 }
 setInterval(nextCarousel,4000);
 </script>
