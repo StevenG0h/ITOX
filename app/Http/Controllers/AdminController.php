@@ -13,16 +13,18 @@ use Illuminate\Validation\Rules\File;
 
 class AdminController extends Controller
 {
-    public function dashboard(){
+    public function dashboard(Request $request){
         $participant = DB::table('members')
         ->join('teams', 'members.kode_tim', '=', 'teams.kode_tim')
         ->join('competitions','teams.kode_lomba','=','competitions.kode_lomba')
         ->get();
         return view('Admin/Manage/adminDashboard')->with(['participants'=>$participant]);
     }
+
     public function adminLogin(){
         return view('Admin/Auth/adminLogin');
     }
+
     public function adminLoginProcess(Request $request){
         $validate = $request->validate([
             'email'=> 'email|required',
@@ -40,22 +42,24 @@ class AdminController extends Controller
         }
         return back()->withErrors(['email' => 'The provided credentials do not match our records.']);
     }
+
     public function verifyParticipant(Request $request){
         $participant = Member::where('member_id',$request->member_id)->first();
         if ($participant->verify == 0) {
             $participant->verify = 1;
         }else{
-            $participant->verify == 0;
+            $participant->verify = 0;
         }
         $participant->save();
         return redirect('admin-dashboard');
     }
+
     public function docNotValid(Request $request){
         $participant = Member::where('member_id',$request->member_id)->first();
         if ($participant->verify == 0) {
             $participant->verify = 2;
         }else{
-            $participant->verify == 0;
+            $participant->verify = 0;
         }
         $participant->save();
         return redirect('admin-dashboard');
@@ -80,6 +84,7 @@ class AdminController extends Controller
         $request->validate([
             'nama_lomba'=>'required|unique:competitions',
             'batas_pendaftaran'=>'required',
+            'min_anggota'=>'required',
             'max_anggota'=>'required',
             'desc'=>'required|max:100',
         ]);
@@ -89,6 +94,7 @@ class AdminController extends Controller
         ]);
         $competition = new Competition;
         $competition->nama_lomba = $request->nama_lomba;
+        $competition->min_anggota = $request->min_anggota;
         $competition->max_anggota = $request->max_anggota;
         $competition->kategori = $request->kategori;
         $competition->batas_pendaftaran = $request->batas_pendaftaran;
@@ -118,12 +124,14 @@ class AdminController extends Controller
         $request->validate([
             'nama_lomba'=>'required',
             'batas_pendaftaran'=>'required',
+            'min_anggota'=>'required',
             'max_anggota'=>'required',
             'desc'=>'required|max:100',
         ]);
         $competition = Competition::where('kode_lomba',$request->kode_lomba)->first();
         $competition->nama_lomba = $request->nama_lomba;
         $competition->max_anggota = $request->max_anggota;
+        $competition->min_anggota = $request->min_anggota;
         $competition->kategori = $request->kategori;
         $competition->batas_pendaftaran = $request->batas_pendaftaran;
         $competition->desc = $request->desc;
@@ -169,7 +177,7 @@ class AdminController extends Controller
         if ($participant->verified == 0) {
             $participant->verified = 1;
         }else{
-            $participant->verified == 0;
+            $participant->verified = 0;
         }
         $participant->save();
         return redirect('teams');
@@ -179,14 +187,13 @@ class AdminController extends Controller
         if ($participant->verified == 0) {
             $participant->verified = 2;
         }else{
-            $participant->verified == 0;
+            $participant->verified = 0;
         }
         $participant->save();
         return redirect('teams');
     }
 
     public function adminRegister(Request $request){
-        
         return view('Admin/Auth/AdminRegister');
     }
 }

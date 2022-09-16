@@ -47,7 +47,11 @@
                         <input type="text" name="nama_lomba" id="nama-lomba" class="form-control" value="{{ $competition->nama_lomba }}" placeholder="Nama Lomba">
                     </div>
                     <div class="form-group">   
-                        <label for="">Jumlah per Tim</label>
+                        <label for="">Jumlah Minimal per Tim</label>
+                        <input type="number" name="min_anggota" id="max-anggota" value="{{ $competition->max_anggota }}" class="form-control" placeholder="Batas Anggota">
+                    </div>
+                    <div class="form-group">   
+                        <label for="">Jumlah Maksimal per Tim</label>
                         <input type="number" name="max_anggota" id="max-anggota" value="{{ $competition->max_anggota }}" class="form-control" placeholder="Batas Anggota">
                     </div>
                     <div class="form-group">

@@ -40,7 +40,7 @@ class ParticipantController extends Controller
         $member = Member::where('kode_tim',$kodeTim)->get();
         $team = Team::where('kode_tim',$kodeTim)->first();
         $competition = Competition::where('kode_lomba',$team->kode_lomba)->first();
-        if (($member->count() < $competition->max_anggota)==false) {
+        if (($member->count() < $competition->min_anggota)==false) {
             return true;
         }else{
             return false;
@@ -142,15 +142,18 @@ class ParticipantController extends Controller
             ]
         ]);
         for ($i=0; $i < count($request->kode_tim); $i++) { 
-            $member = new Member();
-            $file_location = 'MemberDoc/'.$request->nama_tim[$i].'/'.$request->nomor_identitas[$i];
-            $member->nama = $request->nama[$i];
-            $member->kode_tim = $request->kode_tim[$i];
-            $member->nomor_identitas = $request->nomor_identitas[$i];
-            $member->url_dokumen = $file_location.'/'.$request->file('url_dokumen')[$i]->getClientOriginalName();
-            $member->verify = 0;
-            $member->save();
-            $request->file('url_dokumen')[$i]->storeAs('public/'.$file_location,$request->file('url_dokumen')[$i]->getClientOriginalName());
+            if($request->nama[$i] != ''){
+                $member = new Member();
+                $file_location = 'MemberDoc/'.$request->nama_tim[$i].'/'.$request->nomor_identitas[$i];
+                $member->nama = $request->nama[$i];
+                $member->kode_tim = $request->kode_tim[$i];
+                $member->nomor_identitas = $request->nomor_identitas[$i];
+
+                $member->url_dokumen = $file_location.'/'.$request->file('url_dokumen')[$i]->getClientOriginalName();
+                $member->verify = 0;
+                $member->save();
+                $request->file('url_dokumen')[$i]->storeAs('public/'.$file_location,$request->file('url_dokumen')[$i]->getClientOriginalName());
+            }
         }
         return redirect()->intended('dashboard');
     }

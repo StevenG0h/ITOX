@@ -32,11 +32,11 @@
             <input type="hidden" name="nama_tim[]" value="{{ $namaTim }}">
             <input type="hidden" name="kode_tim[]" value="{{ $kodeTim }}">
             <h3 class="mt-1">Nama Anggota</h3>
-            <input type="text" name="nama[]" id="" class="form-text" required placeholder="Masukkan nama anggota">
+            <input type="text" name="nama[]" id="" class="form-text"  placeholder="Masukkan nama anggota">
             <h3 class="mt-1">Nomor Identitas Anggota</h3>
-            <input type="text" name="nomor_identitas[]" id="" class="form-text" required placeholder="Masukkan nama anggota">
+            <input type="text" name="nomor_identitas[]" id="" class="form-text"  placeholder="Masukkan nama anggota">
             <h3 class="mt-1">Idetitas Anggota(Kartu Pelajar/Surat Keterangan Aktif)</h3>
-            <input type="file"  name="url_dokumen[]" id="data-diri" class="upload-file mt-1" required>
+            <input type="file"  name="url_dokumen[]" id="data-diri" class="upload-file mt-1" >
             @endfor
             <input type="submit" class="button mt-1" value="Selanjutnya">
         </form>

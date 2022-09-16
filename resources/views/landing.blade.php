@@ -21,7 +21,7 @@
     }
 </style>
 </head>
-    <body>
+    <body class="landing">
         <header class="navbar-wrapper p1">
             <nav class="navbar">
                 <a href="">
@@ -48,19 +48,19 @@
                 </div>
             </nav>
         </header>
+        <section class="hero-section" id="home">
+            <h1>PENDAFTARAN ITO X TELAH DIBUKA</h1>
+            <div class="hero-image">
+                <img src="{{ asset('image/LogoITO_1.png') }}" alt="" srcset="">
+            </div>
+            <h2>" Innovate without limit "</h2>
+            <div>
+                <a href="#about" class="button">
+                    Yuk, lihat lebih banyak
+                </a>
+            </div>
+        </section>
         <main class="landing-wrapper">
-            <section class="hero-section" id="home">
-                <h1>PENDAFTARAN ITO X TELAH DIBUKA</h1>
-                <div class="hero-image">
-                    <img src="{{ asset('image/maskotITO.png') }}" alt="" srcset="">
-                </div>
-                <h2>" Innovate without limit "</h2>
-                <div>
-                    <a href="#about" class="button">
-                        Yuk, lihat lebih banyak
-                    </a>
-                </div>
-            </section>
             <section class="about p1" id="about">
                 <div class="about-image">
                     

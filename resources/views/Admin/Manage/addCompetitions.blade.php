@@ -46,7 +46,11 @@
                         <input type="text" name="nama_lomba" id="nama-lomba" class="form-control" placeholder="Nama Lomba">
                     </div>
                     <div class="form-group">   
-                        <label for="">Jumlah per Tim</label>
+                        <label for="">Jumlah minimal per Tim</label>
+                        <input type="number" name="min_anggota" id="min-anggota" class="form-control" placeholder="Batas Anggota">
+                    </div>
+                    <div class="form-group">   
+                        <label for="">Jumlah maksimal per Tim</label>
                         <input type="number" name="max_anggota" id="max-anggota" class="form-control" placeholder="Batas Anggota">
                     </div>
                     <div class="form-group">

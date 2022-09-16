@@ -12,6 +12,7 @@
                     <thead>
                         <tr>
                             <th>Nama lomba</th>
+                            <th>Anggota minimal</th>
                             <th>Anggota maksimal</th>
                             <th>Kategori</th>
                             <th>Batas pendaftaran</th>
@@ -28,6 +29,9 @@
                                 {{ $competition->nama_lomba }}
                             </td>
                             
+                            <td>
+                                {{ $competition->min_anggota }}
+                            </td>
                             <td>
                                 {{ $competition->max_anggota }}
                             </td>

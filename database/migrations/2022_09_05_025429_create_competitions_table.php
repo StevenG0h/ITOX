@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id('kode_lomba');
             $table->timestamps();
             $table->string('nama_lomba');
+            $table->integer('min_anggota');
             $table->integer('max_anggota');
             $table->integer('kategori');
             $table->string('desc');
