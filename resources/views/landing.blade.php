@@ -22,7 +22,7 @@
 </style>
 </head>
     <body class="landing">
-        <div class="divider" id="home">
+        
         <header class="navbar-wrapper">
             <nav class="navbar">
                 <a href="">
@@ -53,7 +53,7 @@
                 </div>
             </nav>
         </header>
-        
+        <div class="divider" id="home">
         <section class="hero-section">
             <div class="hero-section-content">
                     <div class="hero-section-content-title">

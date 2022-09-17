@@ -221,9 +221,8 @@ footer{
 /*halaman dashboard*/
 
 .navbar-wrapper{
-    mar
     width: 100%;
-    position: sticky;
+    position: fixed;
     top: 0rem;
     z-index: 2000;
 }
@@ -234,7 +233,7 @@ footer{
     justify-content: space-between;
     width: 1440px;
     margin: auto;
-    padding: 1em;
+    padding: 1vw;
 }
 .nav-link{
     display: flex;
@@ -279,8 +278,11 @@ footer{
     background-color: var(--bg);
     width: 1200px;
     margin: 0 auto 0 auto ;
+    
 }
 .hero-section{
+    padding-top: 10vw;
+    padding-bottom: 10vw;
     grid-column: 1/3;
     width: 100%;
     height: 100vh;
@@ -291,7 +293,7 @@ footer{
     background-position: center;
 }
 .logo{
-    width: 15%;
+    width: 10%;
 }
 .logo img{
     width: 100%;
@@ -316,15 +318,15 @@ footer{
     width: 10vw;
     font-size: 1.2em;
     margin: auto;
+    margin-top: 1em;
     padding: 1em 2em 1em 2em;
 }
 .hero-image{
     width: 100%;
 }
 .hero-image img{
-    width: 30%;
+    width: 25%;
 }
-
 .about{
     background-color: var(--primary);
     border-radius: 20px;
@@ -340,8 +342,9 @@ footer{
     font-size: 5vw;
 }
 .about-image img{
-    margin-top: auto;
     width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 .about-content h1{
     font-size: 5em;
@@ -352,8 +355,8 @@ footer{
     grid-column: 1/3;
     text-align: center;
     overflow: hidden;
-    margin-bottom: 5vw;
     margin-top: 5vw;
+    padding-bottom: 5vw;
 }
 .competition-item{
     display: flex;
@@ -412,9 +415,6 @@ footer{
         width: 100%;
         margin: 1em;
     }
-    .navbar-wrapper{
-        padding: 0;
-    }
     .navbar{
         min-height: 10px;
         display: grid;
@@ -423,11 +423,43 @@ footer{
     .nav-link{
         margin-right: 2vw;
     }
-
-    .logo img{
-        width: 100%;
+    .navbar .button{
+        font-size: 1em;
+    }
+    .hero-image img{
+        width: 30%;
+    }
+    .hero-section .button{
+        width: 30vw;
+    }
+    .about-content h1{
+        font-size: 3em;
+    }
+    .about-content p{
+        font-size: 0.9em;
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .landing-wrapper {
+      width: 750px;
+    }
+    .logo{
+        width: 15%;
+    }
+    .nav-link{
+        margin-right: 2vw;
+    }
+    .hero-image img{
+        margin-top: auto;
+        width: 30%;
     }
     .navbar .button{
         font-size: 1em;
+    }
+    .about-content h1{
+        font-size: 2.8em;
+    }
+    .about-content p{
+        font-size: 0.8em;
     }
 }
