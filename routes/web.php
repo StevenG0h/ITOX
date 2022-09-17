@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function (){
 
 Route::middleware(['isAdmin'])->group(function(){
     Route::get('/admin-dashboard', [AdminController::class,'Dashboard'])->name('AdminDashboard');
+    Route::get('/users', [AdminController::class,'userView'])->name('userView');
     Route::post('/verify-participant', [AdminController::class,'verifyParticipant'])->name('verifyParticipant');
     Route::post('/delete-participant', [AdminController::class,'deleteParticipant'])->name('deleteParticipant');
     Route::post('/doc-not-valid-participant', [AdminController::class,'docNotValid'])->name('docNotValid');

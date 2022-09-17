@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>SB Admin 2 - Login</title>
-
+    <link rel="shortcut icon" href="{{ asset('image/LogoITO_1.png') }}" type="image/x-icon">
     <!-- Custom fonts for this template-->
     <link href="{{ asset('css/AdminTemplate/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link

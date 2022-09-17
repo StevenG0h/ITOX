@@ -59,8 +59,8 @@
                         <select name="kategori" id="" class="form-control">
                             <option value="">Kategori Peserta</option>
                             <option value="0" @if($competition->kategori == 0) selected @endif >SMA / SMK</option>
-                            <option value="1" @if($competition->kategori == 1) selected @endif>Mahasiswa / umum</option>
-                            <option value="2" @if($competition->kategori == 2) selected @endif>SMA / SMK dan Mahasiswa / umum</option>
+                            <option value="1" @if($competition->kategori == 1) selected @endif>SMA / SMK dan Mahasiswa / umum</option>
+                            <option value="2" @if($competition->kategori == 2) selected @endif>Mahasiswa / umum</option>
                         </select>
                     </div>
                     <div class="form-group">

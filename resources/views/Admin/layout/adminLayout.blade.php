@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
-
+    <title>Admin Dashboard</title>
+    <link rel="shortcut icon" href="{{ asset('image/LogoITO_1.png') }}" type="image/x-icon">
     <!-- Custom fonts for this template-->
     <link href="{{ asset('css/adminTemplate/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
@@ -62,7 +62,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('teamsView') }}">
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Tim</span>
+                    <span>Pembayaran</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -72,9 +72,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('showCompetitions') }}">
+                <a class="nav-link" href="{{ route('userView') }}">
                     <i class="fas fa-fw fa-lock"></i>
-                    <span>Admin</span>
+                    <span>Users</span>
                 </a>
             </li>
 

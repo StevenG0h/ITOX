@@ -7,7 +7,8 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive mt-3" >
-                <a class="btn btn-primary" href="{{ route('addCompetitionsView') }}">Tambah Lomba</a>
+                <h1>Cabang Lomba</h1>
+                <a class="btn btn-primary mb-3" href="{{ route('addCompetitionsView') }}">Tambah Lomba</a>
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>

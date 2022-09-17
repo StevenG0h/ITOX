@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Competition;
 use App\Models\Member;
 use App\Models\payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,10 +15,20 @@ use Illuminate\Validation\Rules\File;
 class AdminController extends Controller
 {
     public function dashboard(Request $request){
-        $participant = DB::table('members')
-        ->join('teams', 'members.kode_tim', '=', 'teams.kode_tim')
-        ->join('competitions','teams.kode_lomba','=','competitions.kode_lomba')
-        ->get();
+        if($request->search == null){
+            $participant = DB::table('members')
+            ->join('teams', 'members.kode_tim', '=', 'teams.kode_tim')
+            ->join('competitions','teams.kode_lomba','=','competitions.kode_lomba')
+            ->orderBy('member_id','desc')
+            ->paginate(50);
+        }else{
+            $participant = DB::table('members')
+            ->join('teams', 'members.kode_tim', '=', 'teams.kode_tim')
+            ->join('competitions','teams.kode_lomba','=','competitions.kode_lomba')
+            ->where($request->search_category,'=',$request->search)
+            ->orderBy('member_id','desc')
+            ->paginate(50);
+        }
         return view('Admin/Manage/adminDashboard')->with(['participants'=>$participant]);
     }
 
@@ -191,6 +202,15 @@ class AdminController extends Controller
         }
         $participant->save();
         return redirect('teams');
+    }
+
+    public function userView(Request $request){
+        $user = DB::table('users')->join('teams','teams.kode_tim','=','users.kode_tim')
+        ->join('members','members.member_id','=','teams.kode_ketua')
+        ->orderBy('id','desc')
+        ->paginate(50);
+        $admin = DB::table('users')->join('admins','users.id','=','admins.user_id')->paginate(50);
+        return view('Admin/Manage/user')->with(['users'=>$user,'admins'=>$admin]);
     }
 
     public function adminRegister(Request $request){

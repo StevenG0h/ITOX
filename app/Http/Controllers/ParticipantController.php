@@ -95,9 +95,9 @@ class ParticipantController extends Controller
         $team = Team::where('kode_tim',$auth->kode_tim)->first();
 
         if($team->jenis_institusi == 'Perguruan Tinggi/umum'){
-            $competition = Competition::select(['nama_lomba','kode_lomba'])->where('kategori','>','0')->get();
+            $competition = Competition::select(['nama_lomba','kode_lomba'])->where('kategori','>=','1')->get();
         }else{
-            $competition = Competition::select(['nama_lomba','kode_lomba'])->where('kategori','=','0')->get();
+            $competition = Competition::select(['nama_lomba','kode_lomba'])->where('kategori','<=','1')->get();
         }
         if ($this->checkInstitution() == true) {
             return redirect()->intended('dashboard');
@@ -163,7 +163,7 @@ class ParticipantController extends Controller
             return redirect()->intended('create-team');
         }
         if($this->checkInstitution() == false){
-            return redirect()->intended('add-institution');
+            return redirect()->intended('add-competition');
         }
         if($this->checkMember() == false){
             return redirect()->intended('add-member');

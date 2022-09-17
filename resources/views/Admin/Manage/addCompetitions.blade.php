@@ -58,8 +58,8 @@
                         <select name="kategori" id="" class="form-control">
                             <option value="">Kategori Peserta</option>
                             <option value="0">SMA / SMK</option>
-                            <option value="1">Mahasiswa / umum</option>
-                            <option value="2">SMA / SMK dan Mahasiswa / umum</option>
+                            <option value="1">SMA / SMK dan Mahasiswa / umum</option>
+                            <option value="2">Mahasiswa / umum</option>
                         </select>
                     </div>
                     <div class="form-group">

@@ -5,20 +5,21 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
+        
         <div class="card-body">
-            <form class="d-none d-sm-inline-block form-inline mr-auto my-3 my-md-0 mw-100 navbar-search">
+            <form action="{{route('AdminDashboard')}}" class="d-none d-sm-inline-block form-inline mr-auto my-3 my-md-0 mw-100 navbar-search">
                 <div class="input-group bg-light">
-                    <input type="text" class="form-control bg-light border-0 " placeholder="Cari Berdasarkan"
+                    <input type="text" class="form-control bg-light border-0 " name="search" placeholder="Cari Berdasarkan"
                          aria-describedby="basic-addon2">
-                         <select name="" id="" class="form-select bg-light border-0 outline-none mx-3">
-                            <option value="">Nama Tim</option>
-                            <option value="">Institusi Asal</option>
-                            <option value="">Cabang Lomba</option>
-                            <option value="">Nomor Identitas</option>
+                         <select name="search_category" id="" class="form-select bg-light border-0 outline-none mx-3">
+                            <option value="nama_tim">Nama Tim</option>
+                            <option value="institusi_asal">Institusi Asal</option>
+                            <option value="nama_lomba">Cabang Lomba</option>
+                            <option value="nomor_identitas">Nomor Identitas</option>
                         </select>
                     <div class="input-group-append">
                         
-                        <button class="btn btn-primary" type="button">
+                        <button class="btn btn-primary" type="submit">
                             <i class="fas fa-search fa-sm"></i>
                         </button>
                     </div>
@@ -111,7 +112,11 @@
                         </tr> 
                         @endforeach
                     </tbody>
+                        
                 </table>
+                <div class="linkwrapper" style="width:10%">
+                    {{$participants->links('vendor\pagination\bootstrap-4')}}
+                </div>
             </div>
         </div>
     </div>
