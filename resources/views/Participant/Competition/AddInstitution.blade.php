@@ -1,4 +1,4 @@
-@extends('./Participant/Layouts/AccountTemplate')
+@extends('./Participant/Layouts/DashboardTemplate')
 
 @section('ParticipantAccount')
     <div class="image">
