@@ -30,7 +30,6 @@ a:hover{
 }
 header{
     background-color: var(--primary);
-    height: 3vw;
 }
 main{
     width: 900px;
@@ -220,28 +219,30 @@ footer{
 }
 
 /*halaman dashboard*/
-.landing{
-    gap: 0;
-}
 
 .navbar-wrapper{
-
+    mar
+    width: 100%;
     position: sticky;
     top: 0rem;
-    z-index: 1500;
+    z-index: 2000;
 }
 
 .navbar{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 1920px;
+    width: 1440px;
     margin: auto;
-    
+    padding: 1em;
 }
-
 .nav-link{
     display: flex;
+    justify-content: end;
+}
+.nav-link-wrapper{
+    display: flex;
+    height: 3vw;
 }
 .nav-link a{
     color: var(--text);
@@ -254,15 +255,26 @@ footer{
 .nav-link a:hover{
     color: var(--accent2);
 }
-.nav-link .button{
-    height: 1vw;
-    border-radius: 15px;
-    font-size: 1.2em;
-    margin: auto;
-    margin-top: 0.5vw;
-    background: var(--cornergradient1);
+.signUp{
+    display: grid;
+    align-items: center;
 }
-
+.signUp a{
+    background: var(--cornergradient1);
+    border-radius: 20px;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-left: 1em;
+}
+.signUp a p{
+    margin: 0;
+}
+.signUp a:hover{
+    color: var(--text);
+    box-shadow: 0px 0px 10px 1px var(--accent);
+}
 .landing-wrapper{
     background-color: var(--bg);
     width: 1200px;
@@ -299,7 +311,6 @@ footer{
 }
 .hero-section h1{
     font-size: 3em;
-    margin-top: auto;
 }
 .hero-section .button{
     width: 10vw;
@@ -309,7 +320,6 @@ footer{
 }
 .hero-image{
     width: 100%;
-    min-height: 1px;
 }
 .hero-image img{
     width: 30%;
@@ -383,4 +393,41 @@ footer{
 .carousel-item-image-active{
     transform: scale(1);
     transition: 0.5s;
+}
+
+@media only screen and (max-width: 1600px) {
+    .hero-image img{
+        width: 50%;
+    }
+    .hero-section .button{
+        width: 15vw;
+    }
+}
+@media only screen and (max-width: 1440px) {
+    .landing-wrapper {
+      width: 900px;
+    }
+    .navbar{
+        padding: 0;
+        width: 100%;
+        margin: 1em;
+    }
+    .navbar-wrapper{
+        padding: 0;
+    }
+    .navbar{
+        min-height: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .nav-link{
+        margin-right: 2vw;
+    }
+
+    .logo img{
+        width: 100%;
+    }
+    .navbar .button{
+        font-size: 1em;
+    }
 }

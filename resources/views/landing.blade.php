@@ -21,10 +21,9 @@
     }
 </style>
 </head>
-<div class="divider" id="home">
     <body class="landing">
-        
-        <header class="navbar-wrapper p1">
+        <div class="divider" id="home">
+        <header class="navbar-wrapper">
             <nav class="navbar">
                 <a href="">
                     <div class="logo">
@@ -32,20 +31,25 @@
                     </div>
                 </a>
                 <div class="nav-link">
-                    <a href="#home" >
-                        <p>Beranda</p>
-                    </a>
-                    <a href="#about" class="mx-1">
-                        <p>Tentang ITO</p>
-                    </a>
-                    <a href="#competition" >
-                        <p>Cabang Lomba</p>
-                    </a>
-                    <a href="{{ route('register') }}" class=" mx-1">
-                        <div class="button">
-                            Daftar
+                    <div class="nav-link-wrapper">
+                        <a href="#home" >
+                            <p>Beranda</p>
+                        </a>
+                        <a href="#about" class="mx-1">
+                            <p>Tentang ITO</p>
+                        </a>
+                        <a href="#competition" >
+                            <p>Cabang Lomba</p>
+                        </a>
+                        <div class="signUp">
+                            <a href="{{ route('register') }}" >
+                                <p>
+                                    Daftar
+                                </p>
+                            </a>
                         </div>
-                    </a>
+                    </div>
+
                 </div>
             </nav>
         </header>
