@@ -19,7 +19,12 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/adminTemplate/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
+    <style>
+        .nav-link{
+            background: transparent;
+            border: none;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -54,14 +59,20 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('teamsView') }}">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Tim</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('AdminDashboard') }}">
                     <i class="fas fa-fw fa-user-alt"></i>
                     <span>Peserta</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('teamsView') }}">
-                    <i class="fas fa-fw fa-users"></i>
+                <a class="nav-link" href="{{ route('paymentsView') }}">
+                    <i class="fas fa-fw fa-wallet"></i>
                     <span>Pembayaran</span>
                 </a>
             </li>
@@ -90,9 +101,11 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span></a>
+                <form action="{{route('logout')}}" method="post">
+                    <button class="nav-link" type="submit">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span></button>
+                    </form>
             </li>
 
         </ul>
@@ -105,25 +118,6 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </nav>
                 <!-- End of Topbar -->
                 <div>
                     @yield('admin')

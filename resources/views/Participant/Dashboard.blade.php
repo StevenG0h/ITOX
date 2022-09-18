@@ -53,20 +53,40 @@
     </div>
     <div class="team-data p1 radius-sm">
         <h2>Daftar Anggota</h2>
-        <ul>
-            @foreach($members as $member)
-                @if($member->member_id == $team->kode_ketua)
-                    <li>Ketua : {{ $member->nama }}</li>
-                @else
-                    <li>Anggota : {{ $member->nama }}</li>
-                @endif
-            @endForeach
-        </ul>
+            <table class="team-data">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($members as $member)
+                    <tr>
+                        @if($member->member_id == $team->kode_ketua)
+                        <td>{{ $member->nama }}(Ketua)</td>
+                        @else
+                        <td>{{ $member->nama }}</td>
+                        @endif
+                        <td>@if($member->verify == 0)
+                            Menunggu Verifikasi
+                        @elseif($member->verify == 1)
+                            sudah di verifikasi
+                        @else
+                            Verifikasi Gagal
+                        @endif</td>
+                    @endForeach
+                    </tr>
+                </tbody>
+                
+            </table>
+            
+            <a href="{{route('showMembers')}}">Selengkapnya</a>
     </div>
     <a href="{{ route('Payment') }}" class="payment radius-sm p1">
         <h3>Pembayaran</h3>
     </a>
-    <a href="" class="payment radius-sm p1">
+    <a href="{{ asset('storage/'.$guidebook) }}" class="payment radius-sm p1">
         <h3>Unduh Peraturan Lomba</h3>
     </a>
 @endsection

@@ -13,7 +13,35 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
 <body class="rm-p-m">
-    <header></header>
+        <header class="navbar-wrapper">
+            <nav class="navbar">
+                <a href="">
+                    <div class="logo">
+                        <img src="{{ asset('image/LogoITO_1.png') }}" alt="">
+                    </div>
+                </a>
+                <div class="nav-link">
+                    <div class="nav-link-wrapper">
+                        @guest
+                        <a href="{{route('landing')}}">
+                            <p>
+                                Beranda
+                            </p>
+                        </a>
+                        @else
+                        <a href="">
+                            Dashboard
+                        </a>
+                        <form action="{{ route('logout') }}" method="POST" class="signOut-form">
+                            @csrf
+                            <input type="submit" value="Logout" class="button signOut">
+                        </form>
+                        @endguest
+                    </div>
+
+                </div>
+            </nav>
+        </header>
     <main class="mx-auto radius-sm">
         @yield('ParticipantAccount')
     </main>

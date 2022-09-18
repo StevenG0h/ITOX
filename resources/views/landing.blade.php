@@ -41,13 +41,16 @@
                         <a href="#competition" >
                             <p>Cabang Lomba</p>
                         </a>
-                        <div class="signUp">
-                            <a href="{{ route('register') }}" >
-                                <p>
-                                    Daftar
-                                </p>
-                            </a>
-                        </div>
+                        @guest
+                        @else
+                        <a href="">
+                            Dashboard
+                        </a>
+                        <form action="{{ route('logout') }}" method="POST" class="signOut-form">
+                            @csrf
+                            <input type="submit" value="Logout" class="button signOut">
+                        </form>
+                    @endguest
                     </div>
 
                 </div>
@@ -70,9 +73,9 @@
                 </div>
                     
             </div>
-            <div class="divider" id="about">
+            
         </section>
-        
+        <div class="divider" id="about">
         </div>
         <main class="landing-wrapper">
             <section class="about p1" id="about">
@@ -89,35 +92,25 @@
             <section class="competition my-1" id="competition">
                 <h1>Kategori Lomba</h1>
                 <div class="competition-item my-1">
-                    <h2 class="competition-carousel-head">Web Design</h2>
-                    <h2 class="competition-carousel-head">Poster</h2>
-                    <h2 class="competition-carousel-head">Jaringan</h2>
-                    <h2 class="competition-carousel-head">Web Design</h2>
-                    <h2 class="competition-carousel-head">Web Design</h2>
+                    @foreach($competitions as $competition)
+                    <h2 class="competition-carousel-head">{{$competition->nama_lomba}}</h2>
+                    @endForeach
                     <div class="competition-slider-wrapper">
-                        <div class="competition-item-image carousel-item-image-active">
-                            <img src="{{ asset('image/WEB1.png') }}" alt="">
-                        </div>
+                        @foreach($competitions as $competition)
                         <div class="competition-item-image">
-                            <img src="{{ asset('image/JARINGAN.png') }}" alt="">
+                            <img src="{{ asset('storage/'.$competition->maskot) }}" alt="">
                         </div>
-                        <div class="competition-item-image">
-                            <img src="{{ asset('image/WEB1.png') }}" alt="">
-                        </div>
-                        <div class="competition-item-image">
-                            <img src="{{ asset('image/WEB1.png') }}" alt="">
-                        </div>
-                        <div class="competition-item-image">
-                            <img src="{{ asset('image/WEB1.png') }}" alt="">
-                        </div>
+                        @endForeach
                     </div>
-                    <h2 class="competition-carousel-subhead">Batas Pendaftaran 3 November 2022</h2>
-                    <h2 class="competition-carousel-subhead">Batas Pendaftaran 4 November 2022</h2>
-                    <h2 class="competition-carousel-subhead">Batas Pendaftaran 5 November 2022</h2>
-                    <h2 class="competition-carousel-subhead">Batas Pendaftaran 6 November 2022</h2>
-                    <h2 class="competition-carousel-subhead">Batas Pendaftaran 7 November 2022</h2>
+                    @foreach($competitions as $competition)
+                    <h2 class="competition-carousel-subhead">Batas Pendaftaran {{$competition->batas_pendaftaran}}</h2>
+                    @endForeach
+                    
                     <div class="button-wrap">
-                        <a href="" class="button">Unduh Guidebook</a>
+                        @foreach($competitions as $competition)
+                            <a href="{{ asset('storage/'.$competition->url_guidebook) }}" class="button guide">Unduh Guidebook</a>
+                        @endForeach
+                        
                     </div>
                 </div>
             </section>
@@ -132,34 +125,47 @@ var carouselWrapper = document.querySelectorAll('.competition-slider-wrapper');
 var carouselItem = document.querySelectorAll('.competition-item-image');
 var carouselSubHead = document.querySelectorAll('.competition-carousel-subhead');
 var carouselHead = document.querySelectorAll('.competition-carousel-head');
+var guide = document.querySelectorAll('.guide');
 var carouselIndex = [];
 var carouselButtonIndex = [];
+var carouselLength = carouselItem.length ;
+var carouselSlideAmount = 100/ carouselLength;
+carouselWrapper[0].style.width = (carouselLength*100)+'%' ;
+carouselItem[0].classList.add('carousel-item-image-active');
+carouselHead[0].style.display = "block";
+carouselSubHead[0].style.display = "block";
+guide[0].style.display = "block";
 for (let i = 0; i < carouselWrapper.length; i++) {
     carouselIndex[i] = 0;
     carouselButtonIndex[i] = 0;
 }
+carouselItem.forEach(carousel => {
+    carousel.style.width = carouselSlideAmount+'%';
+});
 function carousel(index,carousel) {
     carouselItem[index].classList.add("carousel-item-image-active");
-    carouselWrapper[carousel].style.transform = "translateX("+index*-20+"%)";
+    carouselWrapper[carousel].style.transform = "translateX("+index*-carouselSlideAmount+"%)";
     carouselSubHead[index].style.display = "block";
     carouselHead[index].style.display = "block";
+    guide[index].style.display = "block";
     carouselIndex[carousel] = index;
     
 }
 function carouselFade(index,carousel){
     if(index == -1){
-        index = 4;
+        index = carouselLength-1;
     }
     carouselItem[index].classList.remove("carousel-item-image-active");
-    carouselWrapper[carousel].style.transform = "translateX("+index*-20+"%)";
+    carouselWrapper[carousel].style.transform = "translateX("+index*-carouselSlideAmount+"%)";
     carouselSubHead[index].style.display = "none";  
     carouselHead[index].style.display = "none";  
+    guide[index].style.display = "none";  
 }
 function nextCarousel(){
     
     for (let i = 0; i < carouselIndex.length; i++) {
         let carousel = carouselIndex[i];
-        if(carousel == 4){
+        if(carousel == carouselLength-1){
             carousel =-1;
         }
         this.carouselFade(carousel,i)   

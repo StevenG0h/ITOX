@@ -7,8 +7,8 @@
     </div>
 </div>
     <div class="content pb-1 px-1 my-1">
-        <h1>Tambah Anggota</h1>
-        <form action="{{ route('AddMemberProcess') }}" method="post" class="form my-1" enctype="multipart/form-data">
+        <h1>Edit Anggota</h1>
+        <form action="{{ route('EditMemberProcess') }}" method="post" class="form my-1" enctype="multipart/form-data">
             @csrf
             @error('nama')
             <div class="radius-sm pl-1 alert-danger">
@@ -28,12 +28,11 @@
                 
             </div>   
             @enderror
-            <input type="hidden" name="nama_tim" value="{{ $namaTim }}">
-            <input type="hidden" name="kode_tim" value="{{ $kodeTim }}">
+            <input type="hidden" name="member_id" value="{{ $member->member_id }}">
             <h3 class="mt-1">Nama Anggota</h3>
-            <input type="text" name="nama" id="" class="form-text"  placeholder="Masukkan nama anggota" required>
+            <input type="text" name="nama" id="" class="form-text"  placeholder="Masukkan nama anggota" value="{{ $member->nama }}" required>
             <h3 class="mt-1">Nomor Identitas Anggota</h3>
-            <input type="text" name="nomor_identitas" id="" class="form-text"  placeholder="Masukkan nomor identitas anggota" required>
+            <input type="text" name="nomor_identitas" id="" class="form-text"  placeholder="Masukkan nomor identitas anggota" value="{{ $member->nomor_identitas }}" required>
             <h3 class="mt-1">Idetitas Anggota(Kartu Pelajar/Surat Keterangan Aktif)</h3>
             <input type="file"  name="url_dokumen" id="data-diri" class="upload-file mt-1" required>
             <input type="submit" class="button mt-1" value="Simpan">

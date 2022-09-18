@@ -7,7 +7,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive mt-3" >
-                <h1>Team</h1>
+                <h1>Pembayaran</h1>
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -16,13 +16,13 @@
                             <th>Cabang Lomba</th>
                             <th>institusi asal</th>
                             <th>Jenis institusi</th>
-                            <th>Verifikasi Anggota</th>
-                            <th>Verifikasi Pembayaran</th>
+                            <th>bukti Pembayaran</th>
+                            <th>Verifikasi</th>
+                            <th>Tolak</th>
                             <th>Hapus</th>
                         </tr>
                     </thead>
                     <tfoot>
-                        <?php $i= 0; ?>
                         @foreach ($teams as $team)
                         <tr>
                             <td>
@@ -42,18 +42,40 @@
                                 {{ $team->jenis_institusi }}
                             </td>
                             <td>
-                                @if($anggota[$i]==1)
-                                    sudah terverifikasi
-                                @else
-                                    belum terverifikasi
-                                @endif
+                                <a href="{{ asset('storage/'.$team->bukti_pembayaran) }}">
+                                    bukti pembayaran
+                                </a>
                             </td>
-                            <td>
-                                @if($payment[$i]==1)
-                                    sudah terverifikasi
-                                @else
-                                    belum terverifikasi
-                                @endif
+                            <td class="text-center">
+                                <form action="{{ route('verifyPayment') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="kode_tim" value="{{ $team->kode_tim }}">
+                                    <button type="submit" class="btn 
+                                    @if($team->verified == 1)
+                                    btn-success
+                                    @else
+                                    btn-secondary
+                                    @endif
+                                    ">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="text-center">
+                                <form action="{{ route('verifyPaymentNotValid') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="kode_tim" value="{{ $team->kode_tim }}">
+                                    <button type="submit" class="btn
+                                    @if($team->verified == 2)
+                                    btn-warning
+                                    @else
+                                    btn-secondary
+                                    @endif
+                                    ">
+                                        X
+                                    </button>
+                                    
+                                </form>
                             </td>
                             <td class="text-center">
                                 <form action="{{ route('deleteCompetitions') }}" method="post">
@@ -66,7 +88,6 @@
                         </tr> 
                         @endforeach
                     </tbody>
-                    {{$teams->links()}}
                 </table>
             </div>
         </div>

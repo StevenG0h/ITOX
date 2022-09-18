@@ -24,18 +24,25 @@ Route::get('/', function(){
 Route::middleware(['auth'])->group(function (){
     Route::get('/create-team', [ParticipantController::class,'CreateTeam'])->name('CreateTeam');
     Route::post('/register-team', [ParticipantController::class,'RegisterTeam'])->name('RegisterTeam');
+    Route::get('/members', [ParticipantController::class,'showMembers'])->name('showMembers');
     Route::get('/add-member', [ParticipantController::class,'AddMember'])->name('AddMember');
+    Route::get('/edit-member/{member_id}', [ParticipantController::class,'EditMember'])->name('EditMember');
     Route::post('/adding-member', [ParticipantController::class,'AddMemberProcess'])->name('AddMemberProcess');
+    Route::post('/editing-member', [ParticipantController::class,'EditMemberProcess'])->name('EditMemberProcess');
     Route::get('/add-competition', [ParticipantController::class,'AddInstitution'])->name('AddInstitution');
     Route::post('/add-competition-process', [ParticipantController::class,'AddInstitutionProcess'])->name('AddInstitutionProcess');
+    Route::post('/delete-member', [ParticipantController::class,'deleteMember'])->name('deleteMember');
     Route::get('/dashboard', [ParticipantController::class,'Dashboard'])->name('Dashboard');
     Route::get('/payment', [ParticipantController::class,'Payment'])->name('Payment');
     Route::post('/payment-process', [ParticipantController::class,'PaymentProcess'])->name('PaymentProcess');
 });
 
 Route::middleware(['isAdmin'])->group(function(){
+    Route::get('/register-admin', [AdminController::class,'registerAdmin'])->name('registerAdmin');
+    Route::post('/register-admin-process', [AdminController::class,'registerAdminProcess'])->name('registerAdminProcess');
     Route::get('/admin-dashboard', [AdminController::class,'Dashboard'])->name('AdminDashboard');
     Route::get('/users', [AdminController::class,'userView'])->name('userView');
+    Route::post('/delete-user', [AdminController::class,'deleteUser'])->name('deleteUser');
     Route::post('/verify-participant', [AdminController::class,'verifyParticipant'])->name('verifyParticipant');
     Route::post('/delete-participant', [AdminController::class,'deleteParticipant'])->name('deleteParticipant');
     Route::post('/doc-not-valid-participant', [AdminController::class,'docNotValid'])->name('docNotValid');
@@ -48,6 +55,7 @@ Route::middleware(['isAdmin'])->group(function(){
     Route::post('/update-competitions-Guidebook', [AdminController::class,'updateGuidebook'])->name('updateGuidebook');
     Route::post('/update-competitions-process', [AdminController::class,'updateCompetitionProcess'])->name('updateCompetitionProcess');
     Route::get('/teams', [AdminController::class,'teamsView'])->name('teamsView');
+    Route::get('/payments', [AdminController::class,'paymentsView'])->name('paymentsView');
     Route::post('/verify-payment', [AdminController::class,'verifyPayment'])->name('verifyPayment');
     Route::post('/verify-payment-not-valid', [AdminController::class,'verifyPaymentNotValid'])->name('verifyPaymentNotValid');
 });

@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\File;
 
 class AdminController extends Controller
@@ -174,13 +175,49 @@ class AdminController extends Controller
         return redirect('competitions');
     }
 
-    public function teamsView(){
+    public function paymentsView(){
         $team = DB::table('teams')
         ->join('members', 'members.member_id', '=', 'teams.kode_ketua')
         ->join('competitions','teams.kode_lomba','=','competitions.kode_lomba')
         ->join('payments','teams.kode_tim','=','payments.kode_tim')
         ->get();
-        return view('Admin/Manage/Team')->with(['teams'=>$team]);
+        return view('Admin/Manage/Payment')->with(['teams'=>$team]);
+    }
+
+    public function teamsView(){
+        $teams = DB::table('teams')
+        ->join('members', 'members.member_id', '=', 'teams.kode_ketua')
+        ->join('competitions','teams.kode_lomba','=','competitions.kode_lomba')
+        ->paginate(50);
+        $anggota = [];
+        $payment = [];
+        foreach ($teams as $team) {
+            $cekAnggota = Member::where('kode_tim',$team->kode_tim)->get(); 
+            $cekPayment = payment::where('kode_tim',$team->kode_tim)->first(); 
+            $member = 0;
+            foreach ($cekAnggota as $dataAnggota) {
+                if($dataAnggota->verify == 1){
+                    $member++;
+                }
+            }
+            dd($member);
+            if($member == count($cekAnggota)){
+                array_push($anggota,1);
+            }else{
+                array_push($anggota,0);
+            }
+
+            if($cekPayment != null){
+                if($cekPayment->verified ==1){
+                    array_push($payment,1);
+                }else{
+                    array_push($payment,0);
+                }
+            }else{
+                array_push($payment,0);
+            }
+        }
+        return view('Admin/Manage/Team')->with(['teams'=>$teams,'anggota'=>$anggota,'payment'=>$payment]);
     }
 
     public function verifyPayment(Request $request){
@@ -193,6 +230,7 @@ class AdminController extends Controller
         $participant->save();
         return redirect('teams');
     }   
+
     public function verifyPaymentNotValid(Request $request){
         $participant = payment::where('kode_tim',$request->kode_tim)->first();
         if ($participant->verified == 0) {
@@ -209,11 +247,40 @@ class AdminController extends Controller
         ->join('members','members.member_id','=','teams.kode_ketua')
         ->orderBy('id','desc')
         ->paginate(50);
-        $admin = DB::table('users')->join('admins','users.id','=','admins.user_id')->paginate(50);
+        $admin = DB::table('users')->join('admins','users.id','=','admins.user_id')->get();
         return view('Admin/Manage/user')->with(['users'=>$user,'admins'=>$admin]);
     }
 
-    public function adminRegister(Request $request){
+    public function deleteUser(Request $request){
+        $user = User::where('id',$request->id)->first();
+        $members = Member::Where('kode_tim',$user->kode_tim)->get();
+        if ($members != null) {
+            foreach ($members as $member) {
+                $member->delete();
+            }
+        }
+        $user->delete();
+        return redirect('users');
+    }
+
+    public function registerAdmin(){
         return view('Admin/Auth/AdminRegister');
+    }
+    public function registerAdminProcess(Request $request){
+        $request->validate([
+            'nama'=> 'required',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+        $user = new User;
+        $admin = new Admin;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+        $admin->user_id = $user->id;
+        $admin->nama = $request->nama;
+        $admin->status = 1;
+        $admin->save();
+        return redirect('users');
     }
 }

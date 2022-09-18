@@ -25,32 +25,38 @@
                                 {{ $user->nama }}
                             </td>
                             <td>
+                                {{ $user->email }}
+                            </td>
+                            <td>
                                 {{ $user->nama_tim }}
                             </td>
                             <td>
                                 {{ $user->institusi_asal }}
                             </td>
                             
-                            <td>
-                                {{ $user->email }}
-                            </td>
+                            
                             <td class="text-center">
-                                <form action="{{ route('deleteCompetitions') }}" method="post">
+                                <form action="{{ route('deleteUser') }}" method="post">
                                     @csrf
-                                    <input type="hidden" name="kode_lomba" value="{{ $user->id }}">
+                                    <input type="hidden" name="id" value="{{ $user->id }}">
                                     <input type="submit" value="Hapus" class="btn btn-danger">
-                                    
                                 </form>
                             </td>
                         </tr> 
                         @endforeach
                     </tbody>
                 </table>
+                <div class="linkwrapper" style="width:10%">
+                    {{$users->links('vendor\pagination\bootstrap-4')}}
+                </div>
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive mt-3" >
                 <h1>Admin</h1>
+                <a href="{{route('registerAdmin')}}" class="btn btn-primary mb-3">
+                    Tambah Admin
+                </a>
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -69,11 +75,10 @@
                                 {{ $admin->email }}
                             </td>
                             <td class="text-center">
-                                <form action="{{ route('deleteCompetitions') }}" method="post">
+                                <form action="{{ route('deleteUser') }}" method="post">
                                     @csrf
-                                    <input type="hidden" name="kode_lomba" value="{{ $user->id }}">
+                                    <input type="hidden" name="id" value="{{ $admin->id }}">
                                     <input type="submit" value="Hapus" class="btn btn-danger">
-                                    
                                 </form>
                             </td>
                         </tr> 

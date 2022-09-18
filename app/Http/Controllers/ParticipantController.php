@@ -46,7 +46,16 @@ class ParticipantController extends Controller
             return false;
         }
     }
-
+    public function paymentCheck(){
+        $user = Auth::user();
+        $kodeTim = $user->kode_tim;
+        $payment = payment::where('kode_tim',$kodeTim)->first();
+        if ($payment ==null) {
+            return true;
+        }else{
+            return false;
+        }
+    }
     public function CreateTeam(){
         if ($this->checkTeam() == true) {
             return redirect()->intended('dashboard');
@@ -88,7 +97,7 @@ class ParticipantController extends Controller
         $request->file('url_dokumen')->storeAs('public/'.$file_location,$request->file('url_dokumen')->getClientOriginalName());
         $team->kode_ketua = $member->member_id;
         $team->save();
-        return redirect()->intended('add-competition');
+        return redirect()->intended('dashboard');
     }
     public function AddInstitution(){
         $auth = Auth::user();
@@ -116,7 +125,16 @@ class ParticipantController extends Controller
         ]);
         $team->kode_lomba = $request->kode_lomba;
         $team->save();
-        return redirect('add-member');
+        return redirect()->intended('members');
+    }
+    public function showMembers(){
+        $user = Auth::user();
+        $kodeTim = $user->kode_tim;
+        $member = Member::where('kode_tim',$kodeTim)->get();
+        $team = Team::where('kode_tim',$kodeTim)->first();
+        $competition = Competition::where('kode_lomba',$team->kode_lomba)->first();
+        $restMember =  $competition->max_anggota - $member->count();
+        return view('Participant/Competition/showMembers')->with(['team'=>$team,'members'=>$member,'restMember'=>$restMember]);
     }
     public function AddMember(){
         if ($this->checkMember() == true) {
@@ -124,12 +142,15 @@ class ParticipantController extends Controller
         }
         $user = Auth::user();
         $kodeTim = $user->kode_tim;
-        $member = Member::where('kode_tim',$kodeTim)->get();
         $team = Team::where('kode_tim',$kodeTim)->first();
         $competition = Competition::where('kode_lomba',$team->kode_lomba)->first();
-        $restMember =  $competition->max_anggota - $member->count();
-        return view('Participant/Competition/AddMember')->with(['restMember' =>$restMember,'kodeTim'=>$kodeTim,'namaTim'=>$team->nama_tim]);
+        return view('Participant/Competition/AddMember')->with(['kodeTim'=>$kodeTim,'namaTim'=>$team->nama_tim]);
     }
+    public function EditMember(Request $request){
+        $member = Member::where('member_id',$request->member_id)->first();
+        return view('Participant/Competition/EditMember')->with(['member'=>$member]);
+    }
+
     public function AddMemberProcess(Request $request){
         $validated = $request->validate([
             'nomor_identitas' => 'required|max:255|unique:members',
@@ -141,20 +162,31 @@ class ParticipantController extends Controller
                 'required',File::types(['jpg','jpeg','png','pdf'])->max(1024 * 300)
             ]
         ]);
-        for ($i=0; $i < count($request->kode_tim); $i++) { 
-            if($request->nama[$i] != ''){
-                $member = new Member();
-                $file_location = 'MemberDoc/'.$request->nama_tim[$i].'/'.$request->nomor_identitas[$i];
-                $member->nama = $request->nama[$i];
-                $member->kode_tim = $request->kode_tim[$i];
-                $member->nomor_identitas = $request->nomor_identitas[$i];
-
-                $member->url_dokumen = $file_location.'/'.$request->file('url_dokumen')[$i]->getClientOriginalName();
-                $member->verify = 0;
-                $member->save();
-                $request->file('url_dokumen')[$i]->storeAs('public/'.$file_location,$request->file('url_dokumen')[$i]->getClientOriginalName());
-            }
-        }
+        $member = new Member();
+        $file_location = 'MemberDoc/'.$request->nama_tim.'/'.$request->nomor_identitas;
+        $member->nama = $request->nama;
+        $member->kode_tim = $request->kode_tim;
+        $member->nomor_identitas = $request->nomor_identitas;
+        $member->url_dokumen = $file_location.'/'.$request->file('url_dokumen')->getClientOriginalName();
+        $member->verify = 0;
+        $member->save();
+        $request->file('url_dokumen')->storeAs('public/'.$file_location,$request->file('url_dokumen')->getClientOriginalName());
+        return redirect()->intended('dashboard');
+    }
+    public function EditMemberProcess(Request $request){
+        $request->validate([
+            'url_dokumen.*'=>[
+                'required',File::types(['jpg','jpeg','png','pdf'])->max(1024 * 300)
+            ]
+        ]);
+        $member = Member::where('member_id',$request->member_id)->first();
+        $file_location = 'MemberDoc/'.$request->nama_tim.'/'.$request->nomor_identitas;
+        $member->nama = $request->nama;
+        $member->nomor_identitas = $request->nomor_identitas;
+        $member->url_dokumen = $file_location.'/'.$request->file('url_dokumen')->getClientOriginalName();
+        $member->verify = 0;
+        $member->save();
+        $request->file('url_dokumen')->storeAs('public/'.$file_location,$request->file('url_dokumen')->getClientOriginalName());
         return redirect()->intended('dashboard');
     }
 
@@ -166,13 +198,13 @@ class ParticipantController extends Controller
             return redirect()->intended('add-competition');
         }
         if($this->checkMember() == false){
-            return redirect()->intended('add-member');
+            return redirect()->intended('members');
         }
         
         $auth = Auth::user();
         $team = Team::where('kode_tim',$auth->kode_tim)->first();
         $member = Member::where('kode_tim',$auth->kode_tim)->get();
-        $namaLomba = Competition::where('kode_lomba',$team->kode_lomba)->first()->nama_lomba;
+        $lomba = Competition::where('kode_lomba',$team->kode_lomba)->first();
         $paymentStatus = payment::where('kode_tim',$auth->kode_tim)->first();
         if ($paymentStatus == null) {
             $paymentStatus = 1;
@@ -181,9 +213,12 @@ class ParticipantController extends Controller
         }else{
             $paymentStatus = 3;
         }
-        return view('Participant/Dashboard')->with(['team'=>$team, 'members'=>$member,'namaLomba'=>$namaLomba,'paymentStatus'=>$paymentStatus]);
+        return view('Participant/Dashboard')->with(['team'=>$team, 'members'=>$member,'namaLomba'=>$lomba->nama_lomba,'paymentStatus'=>$paymentStatus,'guidebook'=>$lomba->url_guidebook]);
     }
     public function Payment(){
+        if($this->paymentCheck() ==false){
+            return redirect('dashboard');
+        }
         return view('Participant/Competition/Payment');
     }
     public function PaymentProcess(Request $request){
@@ -202,5 +237,13 @@ class ParticipantController extends Controller
         $payment->save();
         $request->file('bukti_pembayaran')->storeAs('public/'.$file_location,$request->file('bukti_pembayaran')->getClientOriginalName());
         return redirect()->intended('dashboard');
+    }
+    public function deleteMember(Request $request){
+        $member = Member::where('member_id',$request->member_id);
+        $team = Team::where('kode_ketua',$request->member_id)->first();
+        if($team != null){
+            return redirect('members');
+        }
+        $member->delete();
     }
 }
