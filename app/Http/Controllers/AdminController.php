@@ -188,7 +188,7 @@ class AdminController extends Controller
         $teams = DB::table('teams')
         ->join('members', 'members.member_id', '=', 'teams.kode_ketua')
         ->join('competitions','teams.kode_lomba','=','competitions.kode_lomba')
-        ->paginate(50);
+        ->paginate(1);
         $anggota = [];
         $payment = [];
         foreach ($teams as $team) {
@@ -200,13 +200,12 @@ class AdminController extends Controller
                     $member++;
                 }
             }
-            dd($member);
             if($member == count($cekAnggota)){
                 array_push($anggota,1);
             }else{
                 array_push($anggota,0);
             }
-
+            
             if($cekPayment != null){
                 if($cekPayment->verified ==1){
                     array_push($payment,1);

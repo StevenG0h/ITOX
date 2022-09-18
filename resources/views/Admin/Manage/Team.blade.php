@@ -22,7 +22,8 @@
                         </tr>
                     </thead>
                     <tfoot>
-                        <?php $i= 0; ?>
+                        @php $i= 0;
+                        @endphp
                         @foreach ($teams as $team)
                         <tr>
                             <td>
@@ -55,6 +56,10 @@
                                     belum terverifikasi
                                 @endif
                             </td>
+                            
+                            @php
+                                $i++;
+                            @endphp
                             <td class="text-center">
                                 <form action="{{ route('deleteCompetitions') }}" method="post">
                                     @csrf
@@ -66,8 +71,11 @@
                         </tr> 
                         @endforeach
                     </tbody>
-                    {{$teams->links()}}
+                    
                 </table>
+                <div class="linkwrapper" style="width:10%">
+                    {{$teams->links('vendor\pagination\bootstrap-4')}}
+                </div>
             </div>
         </div>
     </div>
