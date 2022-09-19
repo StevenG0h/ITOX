@@ -13,7 +13,6 @@
         <div class="flash alert-warning">
             Pembayaran sedang diverifikasi
         </div>
-        @else
         @elseif($paymentStatus ==3)
         <div class="flash alert-danger">
             Pembayaran sedang diverifikasi
