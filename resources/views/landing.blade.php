@@ -42,6 +42,7 @@
                             <p>Cabang Lomba</p>
                         </a>
                         @guest
+                        <a href="{{ route('register') }}" class="button signOut">Daftar</a>
                         @else
                         <a href="">
                             Dashboard
