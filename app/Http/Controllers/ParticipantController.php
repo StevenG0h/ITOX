@@ -207,10 +207,14 @@ class ParticipantController extends Controller
         $lomba = Competition::where('kode_lomba',$team->kode_lomba)->first();
         $paymentStatus = payment::where('kode_tim',$auth->kode_tim)->first();
         if ($paymentStatus == null) {
+            $paymentStatus = 0;
+        }else if($paymentStatus->verified == 0){
             $paymentStatus = 1;
-        }else if($paymentStatus->verified == false){
+        }
+        else if($paymentStatus->verified == 1){
             $paymentStatus = 2;
-        }else{
+        }
+        else{
             $paymentStatus = 3;
         }
         return view('Participant/Dashboard')->with(['team'=>$team, 'members'=>$member,'namaLomba'=>$lomba->nama_lomba,'paymentStatus'=>$paymentStatus,'guidebook'=>$lomba->url_guidebook]);

@@ -5,12 +5,17 @@
         <h1>Welcome, team {{ $team->nama_tim }}</h1>
     </div>
     <div class="status">
-        @if($paymentStatus == 1)
+        @if($paymentStatus == 0)
         <div class="flash alert-danger">
             Tim anda belum melakukan pembayaran
         </div>
-        @elseif($paymentStatus ==2)
+        @elseif($paymentStatus ==1)
         <div class="flash alert-warning">
+            Pembayaran sedang diverifikasi
+        </div>
+        @else
+        @elseif($paymentStatus ==3)
+        <div class="flash alert-danger">
             Pembayaran sedang diverifikasi
         </div>
         @else
