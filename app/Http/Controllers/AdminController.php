@@ -248,7 +248,7 @@ class AdminController extends Controller
             $participant->verified = 0;
         }
         $participant->save();
-        return redirect('teams');
+        return redirect('payments');
     }
 
     public function userView(Request $request){
