@@ -80,7 +80,7 @@
                             <td class="text-center">
                                 <form action="{{ route('deleteCompetitions') }}" method="post">
                                     @csrf
-                                    <input type="hidden" name="kode_lomba" value="{{ $team->kode_tim }}">
+                                    <input type="hidden" name="payment_id" value="{{ $team->payment_id }}">
                                     <input type="submit" value="Hapus" class="btn btn-danger">
                                     
                                 </form>

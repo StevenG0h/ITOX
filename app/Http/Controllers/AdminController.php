@@ -234,6 +234,11 @@ class AdminController extends Controller
         $participant->save();
         return redirect('payments');
     }   
+    public function deletePayment(Request $request){
+        $participant = payment::where('payment_id',$request->payment_id)->first();
+        $participant->delete();
+        return redirect('payments');
+    }   
 
     public function verifyPaymentNotValid(Request $request){
         $participant = payment::where('kode_tim',$request->kode_tim)->first();
