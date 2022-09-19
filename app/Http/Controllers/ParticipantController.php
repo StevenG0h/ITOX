@@ -245,5 +245,6 @@ class ParticipantController extends Controller
             return redirect('members');
         }
         $member->delete();
+        return redirect()->intended('members');
     }
 }

@@ -30,7 +30,9 @@
                         </a>
                         @else
                         <a href="">
-                            Dashboard
+                            <p>
+                                Dashboard
+                            </p>
                         </a>
                         <form action="{{ route('logout') }}" method="POST" class="signOut-form">
                             @csrf
