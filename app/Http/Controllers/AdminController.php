@@ -189,7 +189,7 @@ class AdminController extends Controller
         $teams = DB::table('teams')
         ->join('members', 'members.member_id', '=', 'teams.kode_ketua')
         ->join('competitions','teams.kode_lomba','=','competitions.kode_lomba')
-        ->paginate(1);
+        ->paginate(50);
         $anggota = [];
         $payment = [];
         foreach ($teams as $team) {
