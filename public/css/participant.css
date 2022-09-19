@@ -30,6 +30,7 @@ a:hover{
 }
 header{
     background-color: var(--primary);
+    border-bottom: 0.1em solid var(--text);
 }
 main{
     margin-top: 8vw;
