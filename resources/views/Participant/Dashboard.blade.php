@@ -15,7 +15,7 @@
         </div>
         @elseif($paymentStatus ==3)
         <div class="flash alert-danger">
-            Pembayaran sedang diverifikasi
+            Pembayaran Ditolak
         </div>
         @else
         <div class="flash alert-succes">
