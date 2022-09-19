@@ -57,7 +57,7 @@ Route::middleware(['isAdmin'])->group(function(){
     Route::get('/teams', [AdminController::class,'teamsView'])->name('teamsView');
     Route::post('/deleteTeam', [AdminController::class,'deleteTeam'])->name('deleteTeam');
     Route::get('/payments', [AdminController::class,'paymentsView'])->name('paymentsView');
-    Route::get('/delete-payment', [AdminController::class,'deletePayment'])->name('deletePayment');
+    Route::post('/delete-payment', [AdminController::class,'deletePayment'])->name('deletePayment');
     Route::post('/verify-payment', [AdminController::class,'verifyPayment'])->name('verifyPayment');
     Route::post('/verify-payment-not-valid', [AdminController::class,'verifyPaymentNotValid'])->name('verifyPaymentNotValid');
 });
