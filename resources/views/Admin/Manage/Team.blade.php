@@ -21,7 +21,7 @@
                             <th>Hapus</th>
                         </tr>
                     </thead>
-                    <tfoot>
+                    <body>
                         @php $i= 0;
                         @endphp
                         @foreach ($teams as $team)
@@ -42,18 +42,26 @@
                             <td>
                                 {{ $team->jenis_institusi }}
                             </td>
-                            <td>
+                            <td class="text-center">
                                 @if($anggota[$i]==1)
-                                    sudah terverifikasi
+                                    <div class="btn btn-success">
+                                        <i class="fa fa-check"></i>
+                                    </div>
                                 @else
-                                    belum terverifikasi
+                                <div class="btn btn-secondary">
+                                    <i class="fa fa-check"></i>
+                                </div>
                                 @endif
                             </td>
-                            <td>
+                            <td class="text-center">
                                 @if($payment[$i]==1)
-                                    sudah terverifikasi
+                                <div class="btn btn-success">
+                                    <i class="fa fa-check"></i>
+                                </div>
                                 @else
-                                    belum terverifikasi
+                                <div class="btn btn-secondary">
+                                    <i class="fa fa-check"></i>
+                                </div>
                                 @endif
                             </td>
                             
@@ -61,9 +69,9 @@
                                 $i++;
                             @endphp
                             <td class="text-center">
-                                <form action="{{ route('deleteCompetitions') }}" method="post">
+                                <form action="{{ route('deleteTeam') }}" method="post">
                                     @csrf
-                                    <input type="hidden" name="kode_lomba" value="{{ $team->kode_tim }}">
+                                    <input type="hidden" name="kode_tim" value="{{ $team->kode_tim }}">
                                     <input type="submit" value="Hapus" class="btn btn-danger">
                                     
                                 </form>

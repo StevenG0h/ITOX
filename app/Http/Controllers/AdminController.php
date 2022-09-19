@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Competition;
 use App\Models\Member;
 use App\Models\payment;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -218,7 +219,11 @@ class AdminController extends Controller
         }
         return view('Admin/Manage/Team')->with(['teams'=>$teams,'anggota'=>$anggota,'payment'=>$payment]);
     }
-
+    public function deleteTeam(Request $request){
+        $team = Team::where('kode_tim',$request->kode_tim)->first();
+        $team->delete();
+        return redirect('teams');
+    }
     public function verifyPayment(Request $request){
         $participant = payment::where('kode_tim',$request->kode_tim)->first();
         if ($participant->verified == 0) {

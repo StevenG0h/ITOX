@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{{ asset('css/participant.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="{{ asset('css/draggable-slider.css') }}" />
+    
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,21 +33,23 @@
                     </div>
                 </a>
                 <div class="nav-link">
-                    <div class="nav-link-wrapper">
-                        <a href="#home" >
+                    <div class="nav-link-wrapper" >
+                        <a href="#home" class="mx-1">
                             <p>Beranda</p>
                         </a>
-                        <a href="#about" class="mx-1">
+                        <a href="#about" >
                             <p>Tentang ITO</p>
                         </a>
-                        <a href="#competition" >
+                        <a href="#competition" class="mx-1">
                             <p>Cabang Lomba</p>
                         </a>
                         @guest
-                        <a href="{{ route('login') }}" >
+                        <a href="{{ route('login') }}" class="ml-1">
                             <p>Login</p>
                         </a>
-                        <a href="{{ route('register') }}" class="button signOut">Daftar</a>
+                        <form action="{{ route('register') }}" method="get" class="signOut-form">
+                            <input type="submit" value="Daftar" class="button signOut">
+                        </form>
                         @else
                         <a href="">
                             Dashboard
@@ -70,7 +74,7 @@
                     <img src="{{ asset('image/LogoITO_1.png') }}" alt="" srcset="">
                 </div>
                 <div class="hero-section-content-sub">  
-                    <h2>" Innovate without limit "</h2>
+                    <h2>" INNOVATE WITHOUT LIMIT "</h2>
                     <a href="#about" class="button">
                         Yuk, lihat lebih banyak
                     </a>
@@ -95,88 +99,40 @@
             </section>
             <section class="competition my-1" id="competition">
                 <h1>Kategori Lomba</h1>
-                <div class="competition-item my-1">
+                <div id="css-script-menu">
+                  <div class="container">
+                    <div id="example" class="draggable-slider">
+                    <div class="inner">
                     @foreach($competitions as $competition)
-                    <h2 class="competition-carousel-head">{{$competition->nama_lomba}}</h2>
-                    @endForeach
-                    <div class="competition-slider-wrapper">
-                        @foreach($competitions as $competition)
-                        <div class="competition-item-image">
-                            <img src="{{ asset('storage/'.$competition->maskot) }}" alt="">
+                        <div class="slide">
+                            <div class="slide-child">
+                                <div class="slide-child-title">
+                                    <h1>{{$competition->nama_lomba}}</h1>
+                                </div>
+                                <div class="slide-child-image">
+                                    <img src="{{ asset('storage/'.$competition->maskot) }}" alt="">
+                                </div>
+                                <div class="slide-child-title">
+                                    @php
+                                        $date = new DateTime($competition->batas_pendaftaran)
+                                    @endphp
+                                    <h1>{{$date->format("j F, Y")}}</h1>
+                                </div>
+                            </div>
                         </div>
-                        @endForeach
+                    @endforeach
                     </div>
-                    @foreach($competitions as $competition)
-                    <h2 class="competition-carousel-subhead">Batas Pendaftaran {{$competition->batas_pendaftaran}}</h2>
-                    @endForeach
-                    
-                    <div class="button-wrap">
-                        @foreach($competitions as $competition)
-                            <a href="{{ asset('storage/'.$competition->url_guidebook) }}" class="button guide">Unduh Guidebook</a>
-                        @endForeach
-                        
-                    </div>
-                </div>
+                  </div>
+                  </div>
             </section>
         </main>
+        
         <footer>
             <p>Copyright&copy ITO X Team 2022</p>
         </footer>
     </body>
 </html>
+<script src="{{ asset('js/draggable-slider.js') }}"></script>
 <script>
-var carouselWrapper = document.querySelectorAll('.competition-slider-wrapper');
-var carouselItem = document.querySelectorAll('.competition-item-image');
-var carouselSubHead = document.querySelectorAll('.competition-carousel-subhead');
-var carouselHead = document.querySelectorAll('.competition-carousel-head');
-var guide = document.querySelectorAll('.guide');
-var carouselIndex = [];
-var carouselButtonIndex = [];
-var carouselLength = carouselItem.length ;
-var carouselSlideAmount = 100/ carouselLength;
-carouselWrapper[0].style.width = (carouselLength*100)+'%' ;
-carouselItem[0].classList.add('carousel-item-image-active');
-carouselHead[0].style.display = "block";
-carouselSubHead[0].style.display = "block";
-guide[0].style.display = "block";
-for (let i = 0; i < carouselWrapper.length; i++) {
-    carouselIndex[i] = 0;
-    carouselButtonIndex[i] = 0;
-}
-carouselItem.forEach(carousel => {
-    carousel.style.width = carouselSlideAmount+'%';
-});
-function carousel(index,carousel) {
-    carouselItem[index].classList.add("carousel-item-image-active");
-    carouselWrapper[carousel].style.transform = "translateX("+index*-carouselSlideAmount+"%)";
-    carouselSubHead[index].style.display = "block";
-    carouselHead[index].style.display = "block";
-    guide[index].style.display = "block";
-    carouselIndex[carousel] = index;
-    
-}
-function carouselFade(index,carousel){
-    if(index == -1){
-        index = carouselLength-1;
-    }
-    carouselItem[index].classList.remove("carousel-item-image-active");
-    carouselWrapper[carousel].style.transform = "translateX("+index*-carouselSlideAmount+"%)";
-    carouselSubHead[index].style.display = "none";  
-    carouselHead[index].style.display = "none";  
-    guide[index].style.display = "none";  
-}
-function nextCarousel(){
-    
-    for (let i = 0; i < carouselIndex.length; i++) {
-        let carousel = carouselIndex[i];
-        if(carousel == carouselLength-1){
-            carousel =-1;
-        }
-        this.carouselFade(carousel,i)   
-        this.carousel(carousel+1,i);
-        
-    }   
-    
-}
-setInterval(nextCarousel,4000);
+  const mySlider = new DraggableSlider('example');
 </script>

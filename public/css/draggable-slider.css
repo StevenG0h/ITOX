@@ -1,0 +1,55 @@
+/** 
+ * If you don't use the default classes, you're gonna have to rename
+ * these CSS selectors.
+ */
+.container{
+  min-height: 100px;
+}
+.draggable-slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 400px;
+  cursor: grab;
+}
+
+.draggable-slider.active {
+  cursor: grabbing;
+}
+
+.draggable-slider .inner {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  top: 0;
+  left: 0;
+  width: fit-content;
+  height: inherit;
+  transition: left 0.3s ease;
+}
+
+.draggable-slider.active .inner {
+  transition: none;
+}
+.slide-child{
+  width: 100%;
+  line-height: 0;
+}
+.slide-child-title{
+  margin: 2em;
+}
+.slide-child-image{
+  margin: auto;
+  height: 100%;
+  width: 30%;
+}
+.slide-child-image img{
+  width: 100%;
+}
+/**
+ * These styles can be adapted as you see fit.
+ */
+.draggable-slider .inner .slide {
+  width: 50vw;
+  min-height: 100px;
+}
