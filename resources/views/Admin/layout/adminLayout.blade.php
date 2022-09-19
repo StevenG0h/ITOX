@@ -102,6 +102,7 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <form action="{{ route('logout') }}" method="POST">
+                    @csrf
                     <button class="nav-link" type="submit">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span></button>
