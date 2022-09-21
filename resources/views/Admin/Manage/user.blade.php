@@ -39,7 +39,7 @@
                                 <form action="{{ route('deleteUser') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $user->id }}">
-                                    <input type="submit" value="Hapus" class="btn btn-danger">
+                                    <button type="submit" value="Hapus" class="btn btn-danger" onclick="return confirm('yakin ingin hapus?')">Hapus</button>
                                 </form>
                             </td>
                         </tr> 

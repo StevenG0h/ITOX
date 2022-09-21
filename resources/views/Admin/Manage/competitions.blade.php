@@ -49,12 +49,12 @@
                                 {{ $competition->batas_pendaftaran }}
                             </td>
                             <td>
-                                <a href="{{ asset('storage/'.$competition->maskot) }}">
+                                <a href="{{ asset('storage/'.$competition->maskot) }}" target="_blank">
                                     maskot
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ asset('storage/'.$competition->url_guidebook) }}">
+                                <a href="{{ asset('storage/'.$competition->url_guidebook) }}" target="_blank">
                                     guidebook
                                 </a>
                             </td>
@@ -69,7 +69,7 @@
                                 <form action="{{ route('deleteCompetitions') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="kode_lomba" value="{{ $competition->kode_lomba }}">
-                                    <input type="submit" value="Hapus" class="btn btn-danger">
+                                    <button type="submit" value="Hapus" class="btn btn-danger" onclick="return confirm('yakin ingin hapus?')">Hapus</button>
                                     
                                 </form>
                             </td>

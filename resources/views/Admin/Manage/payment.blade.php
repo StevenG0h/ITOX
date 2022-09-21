@@ -42,7 +42,7 @@
                                 {{ $team->jenis_institusi }}
                             </td>
                             <td>
-                                <a href="{{ asset('storage/'.$team->bukti_pembayaran) }}">
+                                <a href="{{ asset('storage/'.$team->bukti_pembayaran) }}" target="_blank">
                                     bukti pembayaran
                                 </a>
                             </td>

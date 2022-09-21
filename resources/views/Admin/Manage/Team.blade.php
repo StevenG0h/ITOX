@@ -72,7 +72,7 @@
                                 <form action="{{ route('deleteTeam') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="kode_tim" value="{{ $team->kode_tim }}">
-                                    <input type="submit" value="Hapus" class="btn btn-danger">
+                                    <button type="submit" value="Hapus" class="btn btn-danger" onclick="return confirm('yakin ingin hapus?')">Hapus</button>
                                     
                                 </form>
                             </td>

@@ -64,7 +64,7 @@
                                 {{ $participant->institusi_asal }}
                             </td>
                             <td>
-                                <a href="{{ asset('storage/'.$participant->url_dokumen) }}">
+                                <a href="{{ asset('storage/'.$participant->url_dokumen) }}" target="_blank">
                                     dokumen
                                 </a>
                             </td>
@@ -103,9 +103,7 @@
                                 <form action="{{ route('deleteParticipant') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="member_id" value="{{ $participant->member_id }}">
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
+                                    <button type="submit" value="Hapus" class="btn btn-danger" onclick="return confirm('yakin ingin hapus?')">Hapus</button>
 
                                 </form>
                             </td>

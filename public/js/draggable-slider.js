@@ -29,6 +29,9 @@ class DraggableSlider {
     this.elem.addEventListener('touchstart', e => {
       this.onStart(e)
     })
+    window.addEventListener('load', () =>{
+      this.onEnd()
+    })
     this.elem.addEventListener('mouseleave', () => {
       this.onEnd()
     })
