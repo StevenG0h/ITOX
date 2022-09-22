@@ -39,7 +39,7 @@
                 </div>
                 @enderror
                 
-                <form action="{{ route('updateCompetitionProcess') }}" enctype="multipart/form-data" method="post" class="w-80">
+                <form action="{{ route('updateCompetitionProcess') }}" enctype="multipart/form-data" method="POST" class="w-80">
                     @csrf
                     <input type="hidden" name="kode_lomba" value="{{ $competition->kode_lomba }}">
                     <div class="form-group">
@@ -75,8 +75,42 @@
                         <input type="submit" name="submit" class="btn btn-primary">
                     </div>
                 </form>
+                <form action="{{ route('updateCompetitionFee') }}" enctype="multipart/form-data" method="post" class="w-80">
+                    <h2>Update Biaya Pendaftaran</h2>
+                    @csrf
+                    <input type="hidden" name="kode_lomba" value="{{$competition->kode_lomba}}">
+                    @if($competition->kategori ==0 )
+                    <div class="form-group">   
+                        <input type="hidden" name="fee_category[]" value="0">
+                        <label for="">Biaya Pendaftaran SMA/SMK/MA</label>
+                        <input type="number" name="biaya[]" id="biaya-pendaftaran" class="form-control" placeholder="Biaya Pendaftaran" value="{{$fee[0]->biaya}}" >
+                    </div>
+                    @elseif($competition->kategori ==1)
+                    <div class="form-group">   
+                        <input type="hidden" name="fee_category[]" value="0">
+                        <label for="">Biaya Pendaftaran SMA/SMK/MA</label>
+                        <input type="number" name="biaya[]" id="biaya-pendaftaran" class="form-control" placeholder="Biaya Pendaftaran" value="{{$fee[0]->biaya}}" >
+                    </div>
+                    <div class="form-group">   
+                        <input type="hidden" name="fee_category[]" value="1">
+                        <label for="">Biaya Pendaftaran Mahasiswa/umum</label>
+                        <input type="number" name="biaya[]" id="biaya-pendaftaran" class="form-control" placeholder="Biaya Pendaftaran" value="{{$fee[1]->biaya}}">
+                    </div>
+                    @else
+                    <div class="form-group">   
+                        <input type="hidden" name="fee_category[]" value="1">
+                        <label for="">Biaya Pendaftaran Mahasiswa/umum</label>
+                        <input type="number" name="biaya[]" id="biaya-pendaftaran" class="form-control" placeholder="Biaya Pendaftaran" value="{{$fee[1]->biaya}}">
+                    </div>
+                    @endif
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-primary">
+                    </div>
+                </form>
+
                 <form action="{{ route('updateMaskot') }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="fee_category" value="1">
                     <h2>Update Maskot</h2>
                     <input type="hidden" name="kode_lomba" value="{{ $competition->kode_lomba }}">
                     <div class="form-group">

@@ -59,18 +59,13 @@
                                 </a>
                             </td>
                             <td class="text-center">
-                                <form action="{{ route('updateCompetitionView') }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="kode_lomba" value="{{ $competition->kode_lomba }}">
-                                    <input type="submit" value="Edit" class="btn btn-warning">
-                                </form>
+                                <a href="{{route('updateCompetitionView',$competition->kode_lomba)}}" class="btn btn-warning">Edit</a>
                             </td>
                             <td class="text-center">
                                 <form action="{{ route('deleteCompetitions') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="kode_lomba" value="{{ $competition->kode_lomba }}">
                                     <button type="submit" value="Hapus" class="btn btn-danger" onclick="return confirm('yakin ingin hapus?')">Hapus</button>
-                                    
                                 </form>
                             </td>
                         </tr> 

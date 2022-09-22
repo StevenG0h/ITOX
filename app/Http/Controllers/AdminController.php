@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Competition;
 use App\Models\Member;
 use App\Models\payment;
+use App\Models\registration_fee;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -119,6 +120,25 @@ class AdminController extends Controller
         $competition->save();
         $request->file('url_guidebook')->storeAs('public/'.$file_location,$request->file('url_guidebook')->getClientOriginalName());
         $request->file('maskot')->storeAs('public/'.$maskot_location,$request->file('maskot')->getClientOriginalName());
+        return redirect('add-competition-fee/'.$competition->kode_lomba);
+    }
+
+    public function addCompetitionFeeView(Request $request){
+        $competition = Competition::where('kode_lomba',$request->kode_lomba)->first();
+        $kategori = $competition->kategori;
+        $kode_lomba = $competition->kode_lomba;
+        return view('Admin/Manage/addFee')->with(['kategori'=>$kategori,'kode_lomba'=>$kode_lomba]);
+    }
+
+    public function addCompetitionFee(Request $request){
+        $request->validate(['kategori'=>'required','kode_lomba'=>'required','biaya_pendaftaran'=>'required']);
+        for ($i=0; $i < $request->biaya_pendaftaran ; $i++) { 
+            $fee = new registration_fee ;
+            $fee->kategori = $request[$i]->kategori;
+            $fee->kode_lomba = $request[$i]->kode_lomba;
+            $fee->biaya_pendaftaran = $request[$i]->biaya_pendaftaran;
+            $fee-Save();
+        }
         return redirect('competitions');
     }
 
@@ -130,7 +150,8 @@ class AdminController extends Controller
 
     public function updateCompetitionView(Request $request){
         $competition = Competition::where('kode_lomba',$request->kode_lomba)->first();
-        return view('Admin/Manage/UpdateCompetition')->with(['competition'=>$competition]);
+        $fee = registration_fee::where('kode_lomba',$competition->kode_lomba)->get();
+        return view('Admin/Manage/UpdateCompetition')->with(['competition'=>$competition,'fee'=>$fee]);
     }
 
     public function UpdateCompetitionProcess(Request $request){
@@ -149,6 +170,21 @@ class AdminController extends Controller
         $competition->batas_pendaftaran = $request->batas_pendaftaran;
         $competition->desc = $request->desc;
         $competition->save();
+        return redirect('competitions');
+    }
+    
+    public function UpdateCompetitionFee(Request $request){
+        $fee = registration_fee::where('kode_lomba',$request->kode_lomba)->get();
+        for ($i=0; $i < count($request->biaya); $i++) { 
+            if (empty($fee[$i])) {
+                $fee[$i] = new registration_fee();
+                $fee[$i]->kode_lomba = $request->kode_lomba;
+            }
+            $fee[$i]->kategori = $request->fee_category[$i];
+            $fee[$i]->biaya = $request->biaya[$i];
+            $fee[$i]->save();
+        }
+        
         return redirect('competitions');
     }
 

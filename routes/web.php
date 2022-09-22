@@ -49,11 +49,14 @@ Route::middleware(['isAdmin'])->group(function(){
     Route::get('/competitions', [AdminController::class,'showCompetitions'])->name('showCompetitions');
     Route::get('/add-competitions', [AdminController::class,'addCompetitionsView'])->name('addCompetitionsView');
     Route::post('/add-competitions-process', [AdminController::class,'addCompetitionsProcess'])->name('addCompetitionsProcess');
+    Route::get('/add-competition-fee/{kode_lomba}', [AdminController::class,'addCompetitionFeeView'])->name('addCompetitionFeeView');
+    Route::post('/add-competition-fee-process', [AdminController::class,'addCompetitionFee'])->name('addCompetitionFee');
     Route::post('/delete-competitions-process', [AdminController::class,'deleteCompetitions'])->name('deleteCompetitions');
-    Route::post('/update-competitions', [AdminController::class,'updateCompetitionView'])->name('updateCompetitionView');
+    Route::get('/update-competitions/{kode_lomba}', [AdminController::class,'updateCompetitionView'])->name('updateCompetitionView');
     Route::post('/update-competitions-maskot', [AdminController::class,'updateMaskot'])->name('updateMaskot');
     Route::post('/update-competitions-Guidebook', [AdminController::class,'updateGuidebook'])->name('updateGuidebook');
     Route::post('/update-competitions-process', [AdminController::class,'updateCompetitionProcess'])->name('updateCompetitionProcess');
+    Route::post('/update-competitions-fee-process', [AdminController::class,'updateCompetitionFee'])->name('updateCompetitionFee');
     Route::get('/teams', [AdminController::class,'teamsView'])->name('teamsView');
     Route::post('/deleteTeam', [AdminController::class,'deleteTeam'])->name('deleteTeam');
     Route::get('/payments', [AdminController::class,'paymentsView'])->name('paymentsView');

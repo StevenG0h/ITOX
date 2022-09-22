@@ -78,7 +78,6 @@
                         <label for="">Upload Guidebook</label>
                         <input type="file" name="url_guidebook" id="url-guidebook" class="form-control-file" placeholder="Guidebook">
                     </div>
-                    
                     <div class="form-group">
                         <input type="submit" name="submit" class="btn btn-primary">
                     </div>
