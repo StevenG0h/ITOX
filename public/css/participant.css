@@ -439,6 +439,16 @@ padding-bottom: 1em;
     width: 20%;
     margin: auto;
 }
+.guidebook{
+    padding: 1em 3em;
+    background: var(--cornergradient1);
+    border-radius: 50px;
+    font-size: 1.2em;
+    color: white;
+}
+.guidebook:hover{
+    color: white;
+}
 @media only screen and (max-width: 1600px) {
     .hero-image img{
         width: 50%;

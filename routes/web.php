@@ -40,7 +40,13 @@ Route::middleware(['auth'])->group(function (){
 Route::middleware(['isAdmin'])->group(function(){
     Route::get('/register-admin', [AdminController::class,'registerAdmin'])->name('registerAdmin');
     Route::post('/register-admin-process', [AdminController::class,'registerAdminProcess'])->name('registerAdminProcess');
-    Route::get('/admin-dashboard', [AdminController::class,'Dashboard'])->name('AdminDashboard');
+    Route::get('/admin-dashboard', [AdminController::class,'dashboard'])->name('AdminDashboard');
+    Route::get('/add-timeline', [AdminController::class,'addTimelineView'])->name('addTimelineView');
+    Route::post('/add-timeline-process', [AdminController::class,'addTimelineProcess'])->name('addTimelineProcess');
+    Route::post('/delete-timeline-process', [AdminController::class,'deleteTimelineProcess'])->name('deleteTimelineProcess');
+    Route::get('/edit-timeline/{kegiatan_id}', [AdminController::class,'editTimelineView'])->name('editTimelineView');
+    Route::post('/edit-timeline-process', [AdminController::class,'editTimelineProcess'])->name('editTimelineProcess');
+    Route::get('/show-participant', [AdminController::class,'Participant'])->name('showParticipant');
     Route::get('/users', [AdminController::class,'userView'])->name('userView');
     Route::post('/delete-user', [AdminController::class,'deleteUser'])->name('deleteUser');
     Route::post('/verify-participant', [AdminController::class,'verifyParticipant'])->name('verifyParticipant');

@@ -21,6 +21,7 @@
             <ul>
                 <li>Transfer ke nomor rekening berikut : <br> 2155301053 a/n lorem Bank BNI</li>
                 <li class="mt-1">Upload bukti transfer di form dibawah</li>
+                <li class="mt-1">Biaya Pendaftaran : {{$fee->biaya}}</li>
             </ul>
             <h3 class="mt-1">Bukti Pembayaran</h3>
             <input type="file"  name="bukti_pembayaran" id="data-diri" class="upload-file mt-1" required>

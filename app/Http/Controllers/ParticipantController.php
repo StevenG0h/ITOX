@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Competition;
 use App\Models\Member;
 use App\Models\payment;
+use App\Models\registration_fee;
 use App\Models\Team;
+use App\Models\timeline;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +18,19 @@ use Illuminate\Validation\Rules\File;
 
 class ParticipantController extends Controller
 {
-    
+    public function checkAdmin()
+    {
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->first();
+        if ($admin != null) {
+            return true;
+        }else{
+            return false;
+        }
+    }
     public function checkTeam(){
         $user = Auth::user();
+        
         if($user->kode_tim != null){
             return true;
         }else{
@@ -26,6 +39,7 @@ class ParticipantController extends Controller
     }
     public function checkInstitution(){
         $user = Auth::user();
+        
         $kodeTim = $user->kode_tim;
         $team = Team::where('kode_tim',$kodeTim)->first();
         if($team->kode_lomba != null){
@@ -57,12 +71,16 @@ class ParticipantController extends Controller
         }
     }
     public function CreateTeam(){
+        if ($this->checkAdmin() ==true) {
+            return redirect()->intended('admin-dashboard');
+        }
         if ($this->checkTeam() == true) {
             return redirect()->intended('dashboard');
         }
         return view('Participant/Competition/CreateTeam');
     }
     public function registerTeam(Request $request){
+        
         $team = new Team;
         $member = new Member();
         $validated = $request->validate([
@@ -100,6 +118,9 @@ class ParticipantController extends Controller
         return redirect()->intended('dashboard');
     }
     public function AddInstitution(){
+        if ($this->checkAdmin() ==true) {
+            return redirect()->intended('admin-dashboard');
+        }
         $auth = Auth::user();
         $team = Team::where('kode_tim',$auth->kode_tim)->first();
 
@@ -128,6 +149,9 @@ class ParticipantController extends Controller
         return redirect()->intended('members');
     }
     public function showMembers(){
+        if ($this->checkAdmin() ==true) {
+            return redirect()->intended('admin-dashboard');
+        }
         $user = Auth::user();
         $kodeTim = $user->kode_tim;
         $member = Member::where('kode_tim',$kodeTim)->get();
@@ -191,6 +215,9 @@ class ParticipantController extends Controller
     }
 
     public function Dashboard(){
+        if ($this->checkAdmin() ==true) {
+            return redirect()->intended('admin-dashboard');
+        }
         if ($this->checkTeam() == false) {
             return redirect()->intended('create-team');
         }
@@ -206,6 +233,7 @@ class ParticipantController extends Controller
         $member = Member::where('kode_tim',$auth->kode_tim)->get();
         $lomba = Competition::where('kode_lomba',$team->kode_lomba)->first();
         $paymentStatus = payment::where('kode_tim',$auth->kode_tim)->first();
+        $timeline = timeline::get();
         if ($paymentStatus == null) {
             $paymentStatus = 0;
         }else if($paymentStatus->verified == 0){
@@ -217,15 +245,30 @@ class ParticipantController extends Controller
         else{
             $paymentStatus = 3;
         }
-        return view('Participant/Dashboard')->with(['team'=>$team, 'members'=>$member,'namaLomba'=>$lomba->nama_lomba,'paymentStatus'=>$paymentStatus,'guidebook'=>$lomba->url_guidebook]);
+        return view('Participant/Dashboard')->with(['team'=>$team, 'timelines'=>$timeline,'members'=>$member,'batas_pendaftaran'=>$lomba->batas_pendaftaran,'namaLomba'=>$lomba->nama_lomba,'paymentStatus'=>$paymentStatus,'guidebook'=>$lomba->url_guidebook]);
     }
     public function Payment(){
+        if ($this->checkAdmin() ==true) {
+            return redirect()->intended('admin-dashboard');
+        }
+        $user = Auth::user();
+        $team = Team::get('kode_tim',$user->kode_tim)->first();
+        $lomba = Competition::get('kode_lomba',$team->kode_lomba)->first();
+        $fee = 0;
+        if ($team->jenis_institusi == 'Perguruan Tinggi/umum') {
+            $fee = registration_fee::where('kode_lomba',$lomba->kode_lomba)->where('kategori',1)->first();
+        }else{
+            $fee = registration_fee::where('kode_lomba',$lomba->kode_lomba)->where('kategori',0)->first();
+        }
         if($this->paymentCheck() ==false){
             return redirect('dashboard');
         }
-        return view('Participant/Competition/Payment');
+        return view('Participant/Competition/Payment')->with(['fee'=>$fee]);
     }
     public function PaymentProcess(Request $request){
+        if ($this->checkAdmin() ==true) {
+            return redirect()->intended('admin-dashboard');
+        }
         $request->validate([
             'bukti_pembayaran'=>[
                 'required',File::types(['jpg','jpeg','png','pdf'])->max(1024 * 300)

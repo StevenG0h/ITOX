@@ -29,20 +29,20 @@
             <tbody>
                 <tr>
                     <td>Batas pendaftaran dan pengumpulan resource</td>
-                    <td>1 November 2022</td>
+                    @php
+                        $date = new DateTime($batas_pendaftaran)
+                    @endphp
+                    <td>{{$date->format("j F, Y")}}</td>
                 </tr>
+                @foreach($timelines as $timeline)
                 <tr>
-                    <td>Pembukaan dan technical meeting</td>
-                    <td>4 November 2022</td>
+                    @php
+                        $date = new DateTime($timeline->tanggal)
+                    @endphp
+                    <td>{{$timeline->kegiatan}}</td>
+                    <td>{{$date->format("j F, Y")}}</td>
                 </tr>
-                <tr>
-                    <td>Hari pertama lomba</td>
-                    <td>5 November 2022</td>
-                </tr>
-                <tr>
-                    <td>Hari Kedua lomba dan pengumuman pemenang</td>
-                    <td>6 November 2022</td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

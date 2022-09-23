@@ -8,6 +8,7 @@ use App\Models\Member;
 use App\Models\payment;
 use App\Models\registration_fee;
 use App\Models\Team;
+use App\Models\timeline;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,43 @@ use Illuminate\Validation\Rules\File;
 
 class AdminController extends Controller
 {
-    public function dashboard(Request $request){
+    public function dashboard(){
+        $timeline = timeline::get();
+        $peserta = count(Member::get());
+        $tim = count(Team::get());
+        $pembayaran = count(payment::get());
+        $peserta_terverifikasi = count(Member::where('verify','=',1)->get());
+        return view('Admin/Manage/Dashboard')->with(['timelines'=>$timeline,'peserta'=>$peserta,'tim'=>$tim,'pembayaran'=>$pembayaran,'peserta_terverifikasi'=>$peserta_terverifikasi]);
+    }
+    public function addTimelineView(Request $request){
+        return view('Admin/Manage/AddTimeline');
+    }
+    public function editTimelineView(Request $request){
+        $timeline = timeline::Where('id',$request->kegiatan_id)->first();
+        return view('Admin/Manage/editTimeline')->with(['timeline'=>$timeline]);
+    }
+    public function addTimelineProcess(Request $request){
+        $request->validate(['tanggal'=>'required','kegiatan'=>'required']);
+        $timeline = new timeline();
+        $timeline->tanggal = $request->tanggal;
+        $timeline->kegiatan = $request->kegiatan;
+        $timeline->save();
+        return redirect('admin-dashboard');
+    }
+    public function deleteTimelineProcess(Request $request){
+        $timeline = timeline::Where('id',$request->id)->first();
+        $timeline->delete();
+        return redirect('admin-dashboard');
+    }
+    public function editTimelineProcess(Request $request){
+        $request->validate(['tanggal'=>'required','kegiatan'=>'required']);
+        $timeline = timeline::Where('id',$request->id)->first();
+        $timeline->tanggal = $request->tanggal;
+        $timeline->kegiatan = $request->kegiatan;
+        $timeline->save();
+        return redirect('admin-dashboard');
+    }
+    public function Participant(Request $request){
         if($request->search == null){
             $participant = DB::table('members')
             ->join('teams', 'members.kode_tim', '=', 'teams.kode_tim')
@@ -65,7 +102,7 @@ class AdminController extends Controller
             $participant->verify = 0;
         }
         $participant->save();
-        return redirect('admin-dashboard');
+        return redirect('show-participant');
     }
 
     public function docNotValid(Request $request){
@@ -76,13 +113,13 @@ class AdminController extends Controller
             $participant->verify = 0;
         }
         $participant->save();
-        return redirect('admin-dashboard');
+        return redirect('show-participant');
     }
 
     public function deleteParticipant(Request $request){
         $participant = Member::where('member_id',$request->member_id)->first();
         $participant->delete();
-        return redirect('admin-dashboard');
+        return redirect('show-participant');
     }
 
     public function showCompetitions(Request $request){
@@ -257,6 +294,10 @@ class AdminController extends Controller
     }
     public function deleteTeam(Request $request){
         $team = Team::where('kode_tim',$request->kode_tim)->first();
+        $members = Member::where('kode_tim',$request->kode_tim)->get();
+        foreach ($members as $member) {
+            $member->delete();
+        }
         $team->delete();
         return redirect('teams');
     }

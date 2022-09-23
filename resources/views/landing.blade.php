@@ -120,22 +120,7 @@
                                     @endphp
                                     <h1>{{$date->format("j F, Y")}}</h1>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <div class="slide-child">
-                                <div class="slide-child-title">
-                                    <h1>{{$competition->nama_lomba}}</h1>
-                                </div>
-                                <div class="slide-child-image">
-                                    <img src="{{ asset('storage/'.$competition->maskot) }}" alt="">
-                                </div>
-                                <div class="slide-child-title">
-                                    @php
-                                        $date = new DateTime($competition->batas_pendaftaran)
-                                    @endphp
-                                    <h1>{{$date->format("j F, Y")}}</h1>
-                                </div>
+                                <a href="{{asset('storage/'.$competition->url_guidebook)}}" class="guidebook">Guidebook</a>
                             </div>
                         </div>
                     @endforeach

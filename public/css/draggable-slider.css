@@ -9,7 +9,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 40vw;
+  height: 50vw;
   cursor: grab;
 }
 
@@ -33,7 +33,6 @@
 }
 .slide-child{
   width: 100%;
-  line-height: 0;
 }
 .slide-child-title{
   margin: 2em;
@@ -55,21 +54,21 @@
 }
 @media only screen and (max-width: 1024px) {
   .draggable-slider {
-    height: 43vw;
+    height: 100vh;
   }
 }
 @media only screen and (max-width: 768px) {
   .draggable-slider {
-    height: 80vw;
+    height: 100vh;
   }
   .slide-child-image{
     margin: auto;
-    width: 40%;
+    width: 30%;
   }
 }
 @media only screen and (max-width: 425px) {
   .draggable-slider {
-    height: 100vw;
+    height: 100vh;
   }
   .slide-child-image{
     margin: auto;

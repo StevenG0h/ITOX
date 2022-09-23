@@ -59,13 +59,19 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('AdminDashboard') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('teamsView') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Tim</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('AdminDashboard') }}">
+                <a class="nav-link" href="{{ route('showParticipant') }}">
                     <i class="fas fa-fw fa-user-alt"></i>
                     <span>Peserta</span>
                 </a>

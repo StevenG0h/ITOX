@@ -29,7 +29,7 @@
                             </p>
                         </a>
                         @else
-                        <a href="">
+                        <a href="{{route('Dashboard')}}">
                             <p>
                                 Dashboard
                             </p>
