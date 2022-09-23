@@ -34,14 +34,16 @@
                                 {{ $user->institusi_asal }}
                             </td>
                             
-                            
                             <td class="text-center">
+                                @if(empty($user->status))
                                 <form action="{{ route('deleteUser') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $user->id }}">
                                     <button type="submit" value="Hapus" class="btn btn-danger" onclick="return confirm('yakin ingin hapus?')">Hapus</button>
                                 </form>
+                                @endif
                             </td>
+                            
                         </tr> 
                         @endforeach
                     </tbody>

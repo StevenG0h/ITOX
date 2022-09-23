@@ -329,8 +329,9 @@ class AdminController extends Controller
     }
 
     public function userView(Request $request){
-        $user = DB::table('users')->join('teams','teams.kode_tim','=','users.kode_tim')
-        ->join('members','members.member_id','=','teams.kode_ketua')
+        $user = DB::table('users')->leftjoin('teams','teams.kode_tim','=','users.kode_tim')
+        ->leftJoin('admins','users.id','=','admins.user_id')
+        ->leftjoin('members','members.member_id','=','teams.kode_ketua')
         ->orderBy('id','desc')
         ->paginate(50);
         $admin = DB::table('users')->join('admins','users.id','=','admins.user_id')->get();
